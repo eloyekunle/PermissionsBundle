@@ -4,6 +4,8 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <import
-            resource="@PermissionsBundle/Resources/config/routing/role.xml"/>
+<route id="eloyekunle_permissions_get_all_roles" path="/roles" methods="GET POST">
+    <default key="_controller"></default>
+</route>
+
 </routes>

@@ -8,7 +8,7 @@
     <mapped-superclass name="Eloyekunle\PermissionsBundle\Model\Role">
         <field name="name" column="rolename" type="string" length="50" nullable="true" unique="true"/>
 
-        <field name="permissions" column="permissions" type="array"/>
+        <field name="permissions" column="permissions" type="array" nullable="true"/>
     </mapped-superclass>
 
 </doctrine-mapping>

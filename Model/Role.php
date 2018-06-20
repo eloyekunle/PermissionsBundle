@@ -21,13 +21,6 @@ abstract class Role implements RoleInterface
     protected $name;
 
     /**
-     * The weight of this role in administrative listings.
-     *
-     * @var int
-     */
-    protected $weight;
-
-    /**
      * The permissions belonging to this role.
      *
      * @var array
@@ -75,22 +68,6 @@ abstract class Role implements RoleInterface
         }
 
         return $this->permissions;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getWeight()
-    {
-        return $this->weight;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setWeight($weight)
-    {
-        $this->weight = $weight;
     }
 
     /**

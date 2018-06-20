@@ -87,22 +87,4 @@ interface RoleInterface
      * @return $this
      */
     public function setIsSuperAdmin($is_admin);
-
-    /**
-     * Returns the weight.
-     *
-     * @return int
-     *   The weight of this role.
-     */
-    public function getWeight();
-
-    /**
-     * Sets the weight to the given value.
-     *
-     * @param int $weight
-     *   The desired weight.
-     *
-     * @return $this
-     */
-    public function setWeight($weight);
 }
