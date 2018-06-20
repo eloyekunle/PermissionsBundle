@@ -25,14 +25,12 @@ abstract class Role implements RoleInterface
      *
      * @var array
      */
-    protected $permissions = [];
+    protected $permissions;
 
-    /**
-     * An indicator whether the role has all permissions.
-     *
-     * @var bool
-     */
-    protected $is_admin;
+    public function __construct()
+    {
+        $this->permissions = [];
+    }
 
     /**
      * {@inheritdoc}
@@ -53,9 +51,11 @@ abstract class Role implements RoleInterface
     /**
      * {@inheritdoc}
      */
-    public function setName(?string $name): void
+    public function setName(?string $name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -67,7 +67,21 @@ abstract class Role implements RoleInterface
             return [];
         }
 
-        return $this->permissions;
+        return array_unique($this->permissions);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setPermissions(array $permissions)
+    {
+        $this->permissions = [];
+
+        foreach ($permissions as $permission) {
+            $this->grantPermission($permission);
+        }
+
+        return $this;
     }
 
     /**
@@ -79,7 +93,7 @@ abstract class Role implements RoleInterface
             return true;
         }
 
-        return in_array($permission, $this->permissions);
+        return in_array($permission, $this->getPermissions(), true);
     }
 
     /**
@@ -113,18 +127,21 @@ abstract class Role implements RoleInterface
     /**
      * {@inheritdoc}
      */
-    public function isSuperAdmin()
+    public function isPermissionInRoles($permission, array $rids)
     {
-        return $this->getName() == static::ROLE_SYSTEM_ADMIN;
+        // TODO: Implement isPermissionInRoles() method.
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setIsSuperAdmin($is_admin)
+    public function isSuperAdmin()
     {
-        $this->is_admin = $is_admin;
+        return $this->getName() == static::ROLE_SYSTEM_ADMIN;
+    }
 
-        return $this;
+    public function prePersist()
+    {
+        // TODO sort permissions alphabetically, convert permission to lowercase
     }
 }

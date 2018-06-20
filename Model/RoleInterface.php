@@ -40,6 +40,16 @@ interface RoleInterface
     public function getPermissions();
 
     /**
+     * Sets the permissions of a role.
+     * This overwrites all previous roles.
+     *
+     * @param array $permissions
+     *
+     * @return void
+     */
+    public function setPermissions(array $permissions);
+
+    /**
      * Checks if the role has a permission.
      *
      * @param string $permission
@@ -71,20 +81,23 @@ interface RoleInterface
     public function revokePermission($permission);
 
     /**
+     * Returns whether a permission is in one of the passed in roles.
+     *
+     * @param string $permission
+     *   The permission.
+     * @param array $rids
+     *   The list of role IDs to check.
+     *
+     * @return bool
+     *   TRUE is the permission is in at least one of the roles. FALSE otherwise.
+     */
+    public function isPermissionInRoles($permission, array $rids);
+
+    /**
      * Indicates that a role has all available permissions.
      *
      * @return bool
      *   TRUE if the role has all permissions.
      */
     public function isSuperAdmin();
-
-    /**
-     * Sets the role to be an admin role.
-     *
-     * @param bool $is_admin
-     *   TRUE if the role should be an admin role.
-     *
-     * @return $this
-     */
-    public function setIsSuperAdmin($is_admin);
 }

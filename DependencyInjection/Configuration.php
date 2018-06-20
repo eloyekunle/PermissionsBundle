@@ -21,6 +21,7 @@ class Configuration implements ConfigurationInterface
         $supportedDrivers = array('orm', 'mongodb', 'couchdb', 'custom');
 
         $rootNode
+          ->addDefaultsIfNotSet()
           ->children()
               ->scalarNode('db_driver')
                   ->validate()
@@ -33,6 +34,7 @@ class Configuration implements ConfigurationInterface
               ->end()
               ->scalarNode('role_class')->isRequired()->cannotBeEmpty()->end()
               ->scalarNode('model_manager_name')->defaultNull()->end()
+              ->scalarNode('permissions_path')->defaultNull()->end()
           ->end();
 
         return $treeBuilder;

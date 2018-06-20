@@ -63,6 +63,7 @@ class EloyekunlePermissionsExtension extends Extension
             'firewall_name' => 'eloyekunle_permissions.firewall_name',
             'model_manager_name' => 'eloyekunle_permissions.model_manager_name',
             'role_class' => 'eloyekunle_permissions.model.role.class',
+            'permissions_path' => 'eloyekunle_permissions.permissions_path'
           ),
         ));
     }

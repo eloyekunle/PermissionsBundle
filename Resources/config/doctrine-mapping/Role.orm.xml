@@ -7,8 +7,11 @@
 
     <mapped-superclass name="Eloyekunle\PermissionsBundle\Model\Role">
         <field name="name" column="rolename" type="string" length="50" nullable="true" unique="true"/>
-
         <field name="permissions" column="permissions" type="array" nullable="true"/>
+
+        <lifecycle-callbacks>
+            <lifecycle-callback type="prePersist" method="prePersist" />
+        </lifecycle-callbacks>
     </mapped-superclass>
 
 </doctrine-mapping>
