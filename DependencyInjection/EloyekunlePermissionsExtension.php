@@ -9,6 +9,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class EloyekunlePermissionsExtension extends Extension
@@ -57,6 +58,11 @@ class EloyekunlePermissionsExtension extends Extension
             $container->setParameter($this->getAlias().'.backend_type_'.$config['db_driver'], true);
         }
 
+        if (isset(self::$doctrineDrivers[$config['db_driver']])) {
+            $definition = $container->getDefinition('eloyekunle_permissions.object_manager');
+            $definition->setFactory([new Reference('eloyekunle_permissions.doctrine_registry'), 'getManager']);
+        }
+
         $this->remapParametersNamespaces($config, $container, array(
           '' => array(
             'db_driver' => 'eloyekunle_permissions.storage',
@@ -66,6 +72,8 @@ class EloyekunlePermissionsExtension extends Extension
             'permissions_path' => 'eloyekunle_permissions.permissions_path'
           ),
         ));
+
+        $this->loadRole($config, $container, $loader);
     }
 
     /**
@@ -106,5 +114,17 @@ class EloyekunlePermissionsExtension extends Extension
                 }
             }
         }
+    }
+
+    private function loadRole(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    {
+        $loader->load('role.xml');
+        $loader->load('doctrine_role.xml');
+
+        $container->setAlias('eloyekunle_permissions.role_manager', new Alias('eloyekunle_permissions.role_manager.default', true));
+
+        $this->remapParametersNamespaces($config, $container, [
+
+        ]);
     }
 }

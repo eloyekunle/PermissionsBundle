@@ -4,7 +4,11 @@
     "type": "symfony-bundle",
     "require": {
         "php": "^7.1.3",
-        "symfony/framework-bundle": "^2.7 || ^3.0 || ^4.0"
+        "symfony/framework-bundle": "^2.7 || ^3.0 || ^4.0",
+        "symfony/form": "^2.7 || ^3.0 || ^4.0"
+    },
+    "require-dev": {
+        "doctrine/doctrine-bundle": "^1.9@dev"
     },
     "license": "MIT",
     "authors": [
@@ -22,9 +26,5 @@
         "branch-alias": {
             "dev-master": "0.1.x-dev"
         }
-    },
-    "minimum-stability": "dev",
-    "require-dev": {
-        "doctrine/doctrine-bundle": "^1.9@dev"
     }
 }
