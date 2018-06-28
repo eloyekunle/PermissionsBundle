@@ -61,21 +61,6 @@ class PermissionHandler implements PermissionHandlerInterface
     /**
      * {@inheritdoc}
      */
-    public function getYamlDiscovery()
-    {
-        if (!isset($this->yamlDiscovery)) {
-            $this->yamlDiscovery = new YamlDiscovery(
-              'permissions',
-              $this->moduleHandler->getModuleDirectories()
-            );
-        }
-
-        return $this->yamlDiscovery;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getPermissions()
     {
         $all_permissions = $this->buildPermissionsYaml();
@@ -102,9 +87,15 @@ class PermissionHandler implements PermissionHandlerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Builds all permissions provided by .permissions.yml files.
+     *
+     * @return array[]
+     *   Each return permission is an array with the following keys:
+     *   - title: The title of the permission.
+     *   - description: The description of the permission, defaults to NULL.
+     *   - provider: The provider of the permission.
      */
-    public function buildPermissionsYaml()
+    protected function buildPermissionsYaml()
     {
         $all_permissions = [];
         $all_callback_permissions = [];
@@ -159,9 +150,18 @@ class PermissionHandler implements PermissionHandlerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Sorts the given permissions by provider name and title.
+     *
+     * @param array $all_permissions
+     *   The permissions to be sorted.
+     *
+     * @return array[]
+     *   Each return permission is an array with the following keys:
+     *   - title: The title of the permission.
+     *   - description: The description of the permission, defaults to NULL.
+     *   - provider: The provider of the permission.
      */
-    public function sortPermissions(array $all_permissions = [])
+    protected function sortPermissions(array $all_permissions = [])
     {
         // Get a list of all the modules providing permissions and sort by
         // display name.

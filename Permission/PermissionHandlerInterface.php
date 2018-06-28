@@ -61,37 +61,4 @@ interface PermissionHandlerInterface
      */
     public function getModuleNames();
 
-    /**
-     * Sorts the given permissions by provider name and title.
-     *
-     * @param array $all_permissions
-     *   The permissions to be sorted.
-     *
-     * @return array[]
-     *   Each return permission is an array with the following keys:
-     *   - title: The title of the permission.
-     *   - description: The description of the permission, defaults to NULL.
-     *   - provider: The provider of the permission.
-     */
-    public function sortPermissions(array $all_permissions = []);
-
-    /**
-     * Builds all permissions provided by .permissions.yml files.
-     *
-     * @return array[]
-     *   Each return permission is an array with the following keys:
-     *   - title: The title of the permission.
-     *   - description: The description of the permission, defaults to NULL.
-     *   - provider: The provider of the permission.
-     */
-    public function buildPermissionsYaml();
-
-    /**
-     * Gets the YAML discovery.
-     *
-     * @return
-     *   The YAML discovery.
-     */
-    public function getYamlDiscovery();
-
 }
