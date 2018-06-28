@@ -53,8 +53,6 @@ class PermissionHandler implements PermissionHandlerInterface
     public function __construct(
       ModuleHandlerInterface $module_handler
     ) {
-        // @todo It would be nice if you could pull all module directories from the
-        //   container.
         $this->moduleHandler = $module_handler;
     }
 
@@ -63,90 +61,17 @@ class PermissionHandler implements PermissionHandlerInterface
      */
     public function getPermissions()
     {
-        $all_permissions = $this->buildPermissionsYaml();
+        $modules = $this->moduleHandler->getModuleList();
+        $allPermissions = [];
 
-        return $this->sortPermissions($all_permissions);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function moduleProvidesPermissions($module_name)
-    {
-        // @TODO Static cache this information, see
-        // https://www.drupal.org/node/2339487
-        $permissions = $this->getPermissions();
-
-        foreach ($permissions as $permission) {
-            if ($permission['provider'] == $module_name) {
-                return true;
+        foreach ($modules as $moduleId => $module) {
+            foreach ($module['permissions'] as $permissionId => $permission) {
+                $permission['provider'] = $moduleId;
+                $allPermissions[$permissionId] = $permission;
             }
         }
 
-        return false;
-    }
-
-    /**
-     * Builds all permissions provided by .permissions.yml files.
-     *
-     * @return array[]
-     *   Each return permission is an array with the following keys:
-     *   - title: The title of the permission.
-     *   - description: The description of the permission, defaults to NULL.
-     *   - provider: The provider of the permission.
-     */
-    protected function buildPermissionsYaml()
-    {
-        $all_permissions = [];
-        $all_callback_permissions = [];
-
-        foreach ($this->getYamlDiscovery()->findAll(
-        ) as $provider => $permissions) {
-            if (isset($permissions['permission_callbacks'])) {
-                foreach ($permissions['permission_callbacks'] as $permission_callback) {
-                    $callback = $this->controllerResolver->getControllerFromDefinition(
-                      $permission_callback
-                    );
-                    if ($callback_permissions = call_user_func($callback)) {
-                        // Add any callback permissions to the array of permissions. Any
-                        // defaults can then get processed below.
-                        foreach ($callback_permissions as $name => $callback_permission) {
-                            if (!is_array($callback_permission)) {
-                                $callback_permission = [
-                                  'title' => $callback_permission,
-                                ];
-                            }
-
-                            $callback_permission += [
-                              'description' => null,
-                              'provider' => $provider,
-                            ];
-
-                            $all_callback_permissions[$name] = $callback_permission;
-                        }
-                    }
-                }
-
-                unset($permissions['permission_callbacks']);
-            }
-
-            foreach ($permissions as &$permission) {
-                if (!is_array($permission)) {
-                    $permission = [
-                      'title' => $permission,
-                    ];
-                }
-                $permission['title'] = $this->t($permission['title']);
-                $permission['description'] = isset($permission['description']) ? $this->t(
-                  $permission['description']
-                ) : null;
-                $permission['provider'] = !empty($permission['provider']) ? $permission['provider'] : $provider;
-            }
-
-            $all_permissions += $permissions;
-        }
-
-        return $all_permissions + $all_callback_permissions;
+        return $this->sortPermissions($allPermissions);
     }
 
     /**
@@ -163,8 +88,6 @@ class PermissionHandler implements PermissionHandlerInterface
      */
     protected function sortPermissions(array $all_permissions = [])
     {
-        // Get a list of all the modules providing permissions and sort by
-        // display name.
         $modules = $this->getModuleNames();
 
         uasort(
@@ -187,22 +110,11 @@ class PermissionHandler implements PermissionHandlerInterface
     public function getModuleNames()
     {
         $modules = [];
-        foreach (array_keys($this->moduleHandler->getModuleList()) as $module) {
-            $modules[$module] = $this->moduleHandler->getName($module);
+        foreach ($this->moduleHandler->getModuleList() as $moduleId => $module) {
+            $modules[$moduleId] = $module['name'];
         }
-        asort($modules);
 
         return $modules;
-    }
-
-    /**
-     * Wraps system_rebuild_module_data()
-     *
-     * @return \Drupal\Core\Extension\Extension[]
-     */
-    protected function systemRebuildModuleData()
-    {
-        return system_rebuild_module_data();
     }
 
 }

@@ -66,14 +66,16 @@ class EloyekunlePermissionsExtension extends Extension
         $this->remapParametersNamespaces($config, $container, array(
           '' => array(
             'db_driver' => 'eloyekunle_permissions.storage',
-            'firewall_name' => 'eloyekunle_permissions.firewall_name',
-            'model_manager_name' => 'eloyekunle_permissions.model_manager_name',
-            'role_class' => 'eloyekunle_permissions.model.role.class',
-            'permissions_path' => 'eloyekunle_permissions.permissions_path'
+            'role_class' => 'eloyekunle_permissions.model.role.class'
           ),
         ));
 
         $this->loadRole($config, $container, $loader);
+        $this->loadPermission($config, $container, $loader);
+
+        if (!empty($config['module'])) {
+            $this->loadModule($config['module'], $container, $loader);
+        }
     }
 
     /**
@@ -122,9 +124,21 @@ class EloyekunlePermissionsExtension extends Extension
         $loader->load('doctrine_role.xml');
 
         $container->setAlias('eloyekunle_permissions.role_manager', new Alias('eloyekunle_permissions.role_manager.default', true));
+    }
+
+    private function loadPermission(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    {
+        $loader->load('permissions.xml');
+    }
+
+    private function loadModule(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    {
+        $loader->load('module.xml');
 
         $this->remapParametersNamespaces($config, $container, [
-
+          '' => [
+            'definitions_path' => 'eloyekunle_permissions.module.definitions_path'
+          ]
         ]);
     }
 }

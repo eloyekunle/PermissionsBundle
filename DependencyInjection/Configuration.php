@@ -4,6 +4,7 @@
 namespace Eloyekunle\PermissionsBundle\DependencyInjection;
 
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -33,10 +34,22 @@ class Configuration implements ConfigurationInterface
                   ->cannotBeEmpty()
               ->end()
               ->scalarNode('role_class')->isRequired()->cannotBeEmpty()->end()
-              ->scalarNode('model_manager_name')->defaultNull()->end()
-              ->scalarNode('permissions_path')->defaultNull()->end()
           ->end();
 
+        $this->addModuleSection($rootNode);
+
         return $treeBuilder;
+    }
+
+    private function addModuleSection(ArrayNodeDefinition $node)
+    {
+        $node
+          ->children()
+            ->arrayNode('module')
+            ->addDefaultsIfNotSet()
+            ->canBeUnset()
+            ->children()
+              ->scalarNode('definitions_path')->defaultValue('config/modules')
+            ->end();
     }
 }
