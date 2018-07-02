@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+        http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="Eloyekunle\PermissionsBundle\Model\User">
+        <property name="name">
+            <constraint name="NotBlank" />
+        </property>
+    </class>
+
+    <class name="Eloyekunle\PermissionsBundle\Model\Role">
+        <property name="username">
+            <constraint name="NotBlank" />
+        </property>
+
+        <property name="plainPassword">
+            <constraint name="NotBlank" />
+            <constraint name="Length">
+                <option name="max">4096</option>
+            </constraint>
+        </property>
+
+        <property name="email">
+            <constraint name="NotBlank" />
+            <constraint name="Email" />
+        </property>
+    </class>
+
+</constraint-mapping>

@@ -127,9 +127,4 @@ interface UserInterface extends BaseUserInterface, \Serializable
      *                     The role ID to remove
      */
     public function removeRole($role);
-
-    /**
-     * @return array
-     */
-    public function getRoleNames();
 }

@@ -11,11 +11,11 @@
 
 namespace Eloyekunle\PermissionsBundle\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 /**
  * Storage agnostic user object.
- *
- * @author Thibault Duplessis <thibault.duplessis@gmail.com>
- * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
 abstract class User implements UserInterface
 {
@@ -35,18 +35,6 @@ abstract class User implements UserInterface
     protected $email;
 
     /**
-     * @var bool
-     */
-    protected $enabled;
-
-    /**
-     * The salt to use for hashing.
-     *
-     * @var string
-     */
-    protected $salt;
-
-    /**
      * Encrypted password. Must be persisted.
      *
      * @var string
@@ -61,7 +49,7 @@ abstract class User implements UserInterface
     protected $plainPassword;
 
     /**
-     * @var array
+     * @var Role[]|Collection
      */
     protected $roles;
 
@@ -70,8 +58,7 @@ abstract class User implements UserInterface
      */
     public function __construct()
     {
-        $this->enabled = false;
-        $this->roles = [];
+        $this->roles = new ArrayCollection();
     }
 
     /**
@@ -107,9 +94,7 @@ abstract class User implements UserInterface
         return serialize(
           [
             $this->password,
-            $this->salt,
             $this->username,
-            $this->enabled,
             $this->id,
             $this->email,
           ]
@@ -135,9 +120,7 @@ abstract class User implements UserInterface
 
         list(
           $this->password,
-          $this->salt,
           $this->username,
-          $this->enabled,
           $this->id,
           $this->email) = $data;
     }
@@ -171,7 +154,7 @@ abstract class User implements UserInterface
      */
     public function getSalt()
     {
-        return $this->salt;
+        return null;
     }
 
     /**
@@ -203,12 +186,7 @@ abstract class User implements UserInterface
      */
     public function getRoles()
     {
-        $roles = $this->roles;
-
-        // we need to make sure to have at least one role
-        $roles[] = Role::ROLE_DEFAULT;
-
-        return array_unique($roles);
+        return $this->getRoleNames();
     }
 
     /**
@@ -217,11 +195,6 @@ abstract class User implements UserInterface
     public function hasRole($role)
     {
         return in_array(strtoupper($role), $this->getRoles(), true);
-    }
-
-    public function isEnabled()
-    {
-        return $this->enabled;
     }
 
     /**
@@ -262,29 +235,9 @@ abstract class User implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function setEmail($email)
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setEnabled($boolean)
-    {
-        $this->enabled = (bool) $boolean;
 
         return $this;
     }
@@ -335,5 +288,41 @@ abstract class User implements UserInterface
         }
 
         return $this;
+    }
+
+    public function hasPermission($permission)
+    {
+        $hasPermission = false;
+
+        foreach ($this->getRoleEntities() as $role) {
+            if ($role->isSuperAdmin() || $role->hasPermission($permission)) {
+                $hasPermission = true;
+                break;
+            }
+        }
+
+        return $hasPermission;
+    }
+
+    private function getRoleNames()
+    {
+        $roleNames = [];
+        $roles = $this->getRoleEntities();
+
+        foreach ($roles as $role) {
+            $roleNames[] = $role->getName();
+        }
+
+        return array_unique($roleNames);
+    }
+
+    /**
+     * @return Role[]
+     */
+    private function getRoleEntities()
+    {
+        $roles = $this->roles;
+
+        return $roles;
     }
 }

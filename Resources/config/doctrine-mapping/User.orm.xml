@@ -6,27 +6,27 @@
 
     <mapped-superclass name="Eloyekunle\PermissionsBundle\Model\User">
 
-        <field name="username" column="username" type="string" length="180" />
+        <id name="id" column="user_id" type="integer">
+            <generator strategy="IDENTITY" />
+            <sequence-generator sequence-name="subportal.users_user_id_seq" allocation-size="1" initial-value="1" />
+        </id>
 
-        <field name="usernameCanonical" column="username_canonical" type="string" length="180" unique="true" />
+        <field name="username" column="username" type="string" length="180" nullable="false" unique="true" />
 
-        <field name="email" column="email" type="string" length="180" />
-
-        <field name="emailCanonical" column="email_canonical" type="string" length="180" unique="true" />
-
-        <field name="enabled" column="enabled" type="boolean" />
-
-        <field name="salt" column="salt" type="string" nullable="true" />
+        <field name="email" column="email" type="string" length="180" nullable="false" unique="true" />
 
         <field name="password" column="password" type="string" />
 
-        <field name="lastLogin" column="last_login" type="datetime" nullable="true" />
-
-        <field name="confirmationToken" column="confirmation_token" type="string" length="180" unique="true" nullable="true" />
-
-        <field name="passwordRequestedAt" column="password_requested_at" type="datetime" nullable="true" />
-
-        <field name="roles" column="roles" type="array" />
+        <many-to-many field="roles" target-entity="Eloyekunle\PermissionsBundle\Model\Role">
+            <join-table name="users_roles">
+                <join-columns>
+                    <join-column name="user_id" referenced-column-name="user_id" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="role_id" referenced-column-name="role_id" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
 
     </mapped-superclass>
 
