@@ -32,17 +32,7 @@ abstract class User implements UserInterface
     /**
      * @var string
      */
-    protected $usernameCanonical;
-
-    /**
-     * @var string
-     */
     protected $email;
-
-    /**
-     * @var string
-     */
-    protected $emailCanonical;
 
     /**
      * @var bool
@@ -69,23 +59,6 @@ abstract class User implements UserInterface
      * @var string
      */
     protected $plainPassword;
-
-    /**
-     * @var \DateTime|null
-     */
-    protected $lastLogin;
-
-    /**
-     * Random string sent to the user email address in order to verify it.
-     *
-     * @var string|null
-     */
-    protected $confirmationToken;
-
-    /**
-     * @var \DateTime|null
-     */
-    protected $passwordRequestedAt;
 
     /**
      * @var array
@@ -135,12 +108,10 @@ abstract class User implements UserInterface
           [
             $this->password,
             $this->salt,
-            $this->usernameCanonical,
             $this->username,
             $this->enabled,
             $this->id,
             $this->email,
-            $this->emailCanonical,
           ]
         );
     }
@@ -165,13 +136,10 @@ abstract class User implements UserInterface
         list(
           $this->password,
           $this->salt,
-          $this->usernameCanonical,
           $this->username,
           $this->enabled,
           $this->id,
-          $this->email,
-          $this->emailCanonical
-          ) = $data;
+          $this->email) = $data;
     }
 
     /**
@@ -201,14 +169,6 @@ abstract class User implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getUsernameCanonical()
-    {
-        return $this->usernameCanonical;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getSalt()
     {
         return $this->salt;
@@ -225,14 +185,6 @@ abstract class User implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getEmailCanonical()
-    {
-        return $this->emailCanonical;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getPassword()
     {
         return $this->password;
@@ -244,24 +196,6 @@ abstract class User implements UserInterface
     public function getPlainPassword()
     {
         return $this->plainPassword;
-    }
-
-    /**
-     * Gets the last login time.
-     *
-     * @return \DateTime|null
-     */
-    public function getLastLogin()
-    {
-        return $this->lastLogin;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getConfirmationToken()
-    {
-        return $this->confirmationToken;
     }
 
     /**
@@ -283,30 +217,6 @@ abstract class User implements UserInterface
     public function hasRole($role)
     {
         return in_array(strtoupper($role), $this->getRoles(), true);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isAccountNonExpired()
-    {
-        return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isAccountNonLocked()
-    {
-        return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isCredentialsNonExpired()
-    {
-        return true;
     }
 
     public function isEnabled()
@@ -352,16 +262,6 @@ abstract class User implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function setUsernameCanonical($usernameCanonical)
-    {
-        $this->usernameCanonical = $usernameCanonical;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function setSalt($salt)
     {
         $this->salt = $salt;
@@ -375,16 +275,6 @@ abstract class User implements UserInterface
     public function setEmail($email)
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setEmailCanonical($emailCanonical)
-    {
-        $this->emailCanonical = $emailCanonical;
 
         return $this;
     }
@@ -431,55 +321,6 @@ abstract class User implements UserInterface
         $this->plainPassword = $password;
 
         return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setLastLogin(\DateTime $time = null)
-    {
-        $this->lastLogin = $time;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setConfirmationToken($confirmationToken)
-    {
-        $this->confirmationToken = $confirmationToken;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setPasswordRequestedAt(\DateTime $date = null)
-    {
-        $this->passwordRequestedAt = $date;
-
-        return $this;
-    }
-
-    /**
-     * Gets the timestamp that the user requested a password reset.
-     *
-     * @return null|\DateTime
-     */
-    public function getPasswordRequestedAt()
-    {
-        return $this->passwordRequestedAt;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isPasswordRequestNonExpired($ttl)
-    {
-        return $this->getPasswordRequestedAt() instanceof \DateTime &&
-          $this->getPasswordRequestedAt()->getTimestamp() + $ttl > time();
     }
 
     /**

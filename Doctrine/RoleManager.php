@@ -39,4 +39,24 @@ class RoleManager extends BaseRoleManager
     {
         return $this->repository->findAll();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isPermissionInRoles($permission, array $roles)
+    {
+        $hasPermission = false;
+
+        foreach ($roles as $roleName) {
+            /** @var \Eloyekunle\PermissionsBundle\Model\Role $role */
+            $role = $this->repository->findOneBy(['name' => $roleName]);
+
+            if ($role->isSuperAdmin() || $role->hasPermission($permission)) {
+                $hasPermission = true;
+                break;
+            }
+        }
+
+        return $hasPermission;
+    }
 }

@@ -14,4 +14,6 @@ namespace Eloyekunle\PermissionsBundle\Model;
 interface RoleManagerInterface
 {
     public function findRoles();
+
+    public function isPermissionInRoles($permission, array $roles);
 }
