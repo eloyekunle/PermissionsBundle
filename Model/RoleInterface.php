@@ -19,9 +19,9 @@ interface RoleInterface
     const ROLE_DEFAULT = 'ROLE_USER';
 
     /**
-     * Role ID for authenticated users; should match what's in the "role" table.
+     * Role ID for super admin users; should match what's in the "role" table.
      */
-    const ROLE_SYSTEM_ADMIN = 'ROLE_SYSTEM_ADMIN';
+    const ROLE_SUPER_ADMIN = 'ROLE_SYSTEM_ADMIN';
 
     /**
      * @return int
@@ -90,13 +90,13 @@ interface RoleInterface
      *
      * @param string $permission
      *                           The permission
-     * @param array  $rids
+     * @param array  $roles
      *                           The list of role IDs to check
      *
      * @return bool
      *              TRUE is the permission is in at least one of the roles. FALSE otherwise.
      */
-    public function isPermissionInRoles($permission, array $rids);
+    public function isPermissionInRoles($permission, array $roles);
 
     /**
      * Indicates that a role has all available permissions.

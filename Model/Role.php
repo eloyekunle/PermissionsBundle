@@ -134,7 +134,7 @@ abstract class Role implements RoleInterface
     /**
      * {@inheritdoc}
      */
-    public function isPermissionInRoles($permission, array $rids)
+    public function isPermissionInRoles($permission, array $roles)
     {
         // TODO: Implement isPermissionInRoles() method.
     }
@@ -144,7 +144,7 @@ abstract class Role implements RoleInterface
      */
     public function isSuperAdmin()
     {
-        return $this->getName() == static::ROLE_SYSTEM_ADMIN;
+        return $this->getName() == static::ROLE_SUPER_ADMIN;
     }
 
     public function prePersist()

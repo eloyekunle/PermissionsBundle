@@ -36,7 +36,7 @@ class EloyekunlePermissionsExtension extends Extension
       'couchdb' => array(
         'registry' => 'doctrine_couchdb',
         'tag' => 'doctrine_couchdb.event_subscriber',
-        'listener_class' => 'FOS\UserBundle\Doctrine\CouchDB\UserListener',
+        'listener_class' => 'Eloyekunle\PermissionsBundle\Doctrine\CouchDB\UserListener',
       ),
     );
 
