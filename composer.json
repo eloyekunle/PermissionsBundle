@@ -9,7 +9,8 @@
         "symfony/yaml": "^2.7 || ^3.0 || ^4.0"
     },
     "require-dev": {
-        "doctrine/doctrine-bundle": "^1.9@dev"
+        "doctrine/doctrine-bundle": "^1.9@dev",
+        "phpunit/phpunit": "^7.2"
     },
     "license": "MIT",
     "authors": [
