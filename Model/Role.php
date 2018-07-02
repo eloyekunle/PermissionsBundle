@@ -136,7 +136,7 @@ abstract class Role implements RoleInterface
      */
     public function isPermissionInRoles($permission, array $roles)
     {
-        // TODO: Implement isPermissionInRoles() method.
+        $hasPermission = false;
     }
 
     /**

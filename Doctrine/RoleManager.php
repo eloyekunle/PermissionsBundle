@@ -13,8 +13,9 @@ namespace Eloyekunle\PermissionsBundle\Doctrine;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
+use Eloyekunle\PermissionsBundle\Model\RoleManager as BaseRoleManager;
 
-class RoleManager
+class RoleManager extends BaseRoleManager
 {
     /** @var ObjectManager */
     protected $objectManager;
