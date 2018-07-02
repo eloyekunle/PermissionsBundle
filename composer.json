@@ -2,12 +2,13 @@
     "name": "eloyekunle/permissions-bundle",
     "description": "A Simple Permission Management Bundle for Symfony",
     "type": "symfony-bundle",
+    "keywords": ["User management"],
     "require": {
         "php": "^7.1.3",
         "symfony/framework-bundle": "^2.7 || ^3.0 || ^4.0",
         "symfony/form": "^2.7 || ^3.0 || ^4.0",
         "symfony/yaml": "^2.7 || ^3.0 || ^4.0",
-        "symfony/security": "^4.1"
+        "symfony/security": "^2.7 || ^3.0 || ^4.0"
     },
     "require-dev": {
         "doctrine/doctrine-bundle": "^1.9",
@@ -23,6 +24,14 @@
     "autoload": {
         "psr-4": {
             "Eloyekunle\\PermissionsBundle\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Eloyekunle\\PermissionsBundle\\Tests\\": "/Tests"
         }
     },
     "extra": {
