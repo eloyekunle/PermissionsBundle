@@ -2,10 +2,8 @@
 
 namespace Eloyekunle\PermissionsBundle\Model;
 
-
 abstract class Role implements RoleInterface
 {
-
     /**
      * The machine name of this role.
      *

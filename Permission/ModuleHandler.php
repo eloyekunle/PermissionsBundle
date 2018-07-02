@@ -1,14 +1,11 @@
 <?php
 
-
 namespace Eloyekunle\PermissionsBundle\Permission;
-
 
 use Eloyekunle\PermissionsBundle\Util\YamlDiscovery;
 
 class ModuleHandler implements ModuleHandlerInterface
 {
-
     /** @var string */
     protected $definitionsPath;
 
@@ -40,7 +37,8 @@ class ModuleHandler implements ModuleHandlerInterface
         return $modules;
     }
 
-    private function parsePermissions(array $permissions): array {
+    private function parsePermissions(array $permissions): array
+    {
         $multiDimPermissions = [];
         foreach ($permissions as $key => $value) {
             $multiDimPermissions[] = ['key' => $key] + $value;
@@ -51,6 +49,5 @@ class ModuleHandler implements ModuleHandlerInterface
 
     public function getModuleNames()
     {
-
     }
 }

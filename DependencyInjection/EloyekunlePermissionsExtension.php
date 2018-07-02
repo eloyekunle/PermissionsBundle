@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Eloyekunle\PermissionsBundle\DependencyInjection;
-
 
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
@@ -66,7 +64,7 @@ class EloyekunlePermissionsExtension extends Extension
         $this->remapParametersNamespaces($config, $container, array(
           '' => array(
             'db_driver' => 'eloyekunle_permissions.storage',
-            'role_class' => 'eloyekunle_permissions.model.role.class'
+            'role_class' => 'eloyekunle_permissions.model.role.class',
           ),
         ));
 
@@ -137,8 +135,8 @@ class EloyekunlePermissionsExtension extends Extension
 
         $this->remapParametersNamespaces($config, $container, [
           '' => [
-            'definitions_path' => 'eloyekunle_permissions.module.definitions_path'
-          ]
+            'definitions_path' => 'eloyekunle_permissions.module.definitions_path',
+          ],
         ]);
     }
 }

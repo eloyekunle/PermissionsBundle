@@ -2,7 +2,6 @@
 
 namespace Eloyekunle\PermissionsBundle\Permission;
 
-
 /**
  * Provides the available permissions based on yml files.
  *
@@ -42,7 +41,6 @@ namespace Eloyekunle\PermissionsBundle\Permission;
  */
 class PermissionHandler implements PermissionHandlerInterface
 {
-
     /**
      * The module handler.
      *
@@ -77,13 +75,13 @@ class PermissionHandler implements PermissionHandlerInterface
      * Sorts the given permissions by provider name and title.
      *
      * @param array $all_permissions
-     *   The permissions to be sorted.
+     *                               The permissions to be sorted
      *
      * @return array[]
-     *   Each return permission is an array with the following keys:
-     *   - title: The title of the permission.
-     *   - description: The description of the permission, defaults to NULL.
-     *   - provider: The provider of the permission.
+     *                 Each return permission is an array with the following keys:
+     *                 - title: The title of the permission.
+     *                 - description: The description of the permission, defaults to NULL.
+     *                 - provider: The provider of the permission.
      */
     protected function sortPermissions(array $all_permissions = [])
     {
@@ -115,5 +113,4 @@ class PermissionHandler implements PermissionHandlerInterface
 
         return $modules;
     }
-
 }

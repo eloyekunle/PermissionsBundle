@@ -2,14 +2,12 @@
 
 namespace Eloyekunle\PermissionsBundle\Controller;
 
-
 use Eloyekunle\PermissionsBundle\Doctrine\RoleManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 class RoleController extends Controller
 {
-
     /** @var RoleManager */
     private $roleManager;
 
@@ -30,6 +28,5 @@ class RoleController extends Controller
 
     public function create(): Response
     {
-
     }
 }

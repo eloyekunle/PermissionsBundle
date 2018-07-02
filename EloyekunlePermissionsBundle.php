@@ -8,7 +8,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class EloyekunlePermissionsBundle extends Bundle
 {
-
     /**
      * @param ContainerBuilder $container
      */

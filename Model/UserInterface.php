@@ -2,17 +2,16 @@
 
 namespace Eloyekunle\PermissionsBundle\Model;
 
-
 interface UserInterface
 {
     /**
      * Checks whether a user has a certain permission.
      *
      * @param string $permission
-     *   The permission string to check.
+     *                           The permission string to check
      *
      * @return bool
-     *   TRUE if the user has the permission, FALSE otherwise.
+     *              TRUE if the user has the permission, FALSE otherwise
      */
     public function hasPermission($permission);
 
@@ -20,10 +19,10 @@ interface UserInterface
      * Whether a user has a certain role.
      *
      * @param string $rid
-     *   The role ID to check.
+     *                    The role ID to check
      *
      * @return bool
-     *   Returns TRUE if the user has the role, otherwise FALSE.
+     *              Returns TRUE if the user has the role, otherwise FALSE
      */
     public function hasRole($rid);
 
@@ -42,7 +41,7 @@ interface UserInterface
      * Add a role to a user.
      *
      * @param string $rid
-     *   The role ID to add.
+     *                    The role ID to add
      */
     public function addRole($rid);
 
@@ -50,7 +49,7 @@ interface UserInterface
      * Remove a role from a user.
      *
      * @param string $rid
-     *   The role ID to remove.
+     *                    The role ID to remove
      */
     public function removeRole($rid);
 }

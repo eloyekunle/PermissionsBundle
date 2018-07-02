@@ -1,10 +1,7 @@
 <?php
 
-
 namespace Eloyekunle\PermissionsBundle\Form\Type;
 
-
-use Eloyekunle\PermissionsBundle\Model\Role;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -13,7 +10,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RoleFormType extends AbstractType
 {
-
     /** @var string */
     private $class;
 
@@ -27,7 +23,7 @@ class RoleFormType extends AbstractType
         $builder
           ->add('name', TextType::class)
           ->add('permissions', CollectionType::class, [
-            'entry_type' => TextType::class
+            'entry_type' => TextType::class,
           ]);
     }
 

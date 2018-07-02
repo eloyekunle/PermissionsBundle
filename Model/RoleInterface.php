@@ -2,10 +2,8 @@
 
 namespace Eloyekunle\PermissionsBundle\Model;
 
-
 interface RoleInterface
 {
-
     /**
      * Role ID for anonymous users; should match what's in the "role" table.
      */
@@ -35,7 +33,7 @@ interface RoleInterface
      * Returns a list of permissions assigned to the role.
      *
      * @return array
-     *   The permissions assigned to the role.
+     *               The permissions assigned to the role
      */
     public function getPermissions();
 
@@ -44,8 +42,6 @@ interface RoleInterface
      * This overwrites all previous roles.
      *
      * @param array $permissions
-     *
-     * @return void
      */
     public function setPermissions(array $permissions);
 
@@ -53,10 +49,10 @@ interface RoleInterface
      * Checks if the role has a permission.
      *
      * @param string $permission
-     *   The permission to check for.
+     *                           The permission to check for
      *
      * @return bool
-     *   TRUE if the role has the permission, FALSE if not.
+     *              TRUE if the role has the permission, FALSE if not
      */
     public function hasPermission($permission);
 
@@ -64,7 +60,7 @@ interface RoleInterface
      * Grant permissions to the role.
      *
      * @param string $permission
-     *   The permission to grant.
+     *                           The permission to grant
      *
      * @return $this
      */
@@ -74,7 +70,7 @@ interface RoleInterface
      * Revokes a permissions from the user role.
      *
      * @param string $permission
-     *   The permission to revoke.
+     *                           The permission to revoke
      *
      * @return $this
      */
@@ -84,12 +80,12 @@ interface RoleInterface
      * Returns whether a permission is in one of the passed in roles.
      *
      * @param string $permission
-     *   The permission.
-     * @param array $rids
-     *   The list of role IDs to check.
+     *                           The permission
+     * @param array  $rids
+     *                           The list of role IDs to check
      *
      * @return bool
-     *   TRUE is the permission is in at least one of the roles. FALSE otherwise.
+     *              TRUE is the permission is in at least one of the roles. FALSE otherwise.
      */
     public function isPermissionInRoles($permission, array $rids);
 
@@ -97,7 +93,7 @@ interface RoleInterface
      * Indicates that a role has all available permissions.
      *
      * @return bool
-     *   TRUE if the role has all permissions.
+     *              TRUE if the role has all permissions
      */
     public function isSuperAdmin();
 }

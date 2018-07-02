@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Eloyekunle\PermissionsBundle\Permission;
-
 
 interface ModuleHandlerInterface
 {
@@ -13,8 +11,5 @@ interface ModuleHandlerInterface
      */
     public function getModuleList();
 
-    /**
-     *
-     */
     public function getModuleNames();
 }
