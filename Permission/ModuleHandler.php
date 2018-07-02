@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the EloyekunlePermissionsBundle package.
+ *
+ * (c) Elijah Oyekunle <https://elijahoyekunle.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Eloyekunle\PermissionsBundle\Permission;
 
 use Eloyekunle\PermissionsBundle\Util\YamlDiscovery;
@@ -37,6 +46,10 @@ class ModuleHandler implements ModuleHandlerInterface
         return $modules;
     }
 
+    public function getModuleNames()
+    {
+    }
+
     private function parsePermissions(array $permissions): array
     {
         $multiDimPermissions = [];
@@ -45,9 +58,5 @@ class ModuleHandler implements ModuleHandlerInterface
         }
 
         return $multiDimPermissions;
-    }
-
-    public function getModuleNames()
-    {
     }
 }

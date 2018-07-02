@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the EloyekunlePermissionsBundle package.
+ *
+ * (c) Elijah Oyekunle <https://elijahoyekunle.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Eloyekunle\PermissionsBundle\Permission;
 
 /**
@@ -72,6 +81,19 @@ class PermissionHandler implements PermissionHandlerInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getModuleNames()
+    {
+        $modules = [];
+        foreach ($this->moduleHandler->getModuleList() as $moduleId => $module) {
+            $modules[$moduleId] = $module['name'];
+        }
+
+        return $modules;
+    }
+
+    /**
      * Sorts the given permissions by provider name and title.
      *
      * @param array $all_permissions
@@ -92,25 +114,12 @@ class PermissionHandler implements PermissionHandlerInterface
           function (array $permission_a, array $permission_b) use ($modules) {
               if ($modules[$permission_a['provider']] == $modules[$permission_b['provider']]) {
                   return $permission_a['title'] > $permission_b['title'];
-              } else {
-                  return $modules[$permission_a['provider']] > $modules[$permission_b['provider']];
               }
+
+              return $modules[$permission_a['provider']] > $modules[$permission_b['provider']];
           }
         );
 
         return $all_permissions;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getModuleNames()
-    {
-        $modules = [];
-        foreach ($this->moduleHandler->getModuleList() as $moduleId => $module) {
-            $modules[$moduleId] = $module['name'];
-        }
-
-        return $modules;
     }
 }
