@@ -3,7 +3,7 @@
 namespace Eloyekunle\PermissionsBundle\Model;
 
 
-interface UserInterface
+interface SupportsRoleInterface
 {
     /**
      * Checks whether a user has a certain permission.
