@@ -50,10 +50,9 @@ class PermissionHandler implements PermissionHandlerInterface
      */
     protected $moduleHandler;
 
-    public function __construct(
-      ModuleHandlerInterface $module_handler
-    ) {
-        $this->moduleHandler = $module_handler;
+    public function __construct(ModuleHandlerInterface $moduleHandler)
+    {
+        $this->moduleHandler = $moduleHandler;
     }
 
     /**

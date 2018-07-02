@@ -10,7 +10,7 @@
         </service>
 
         <service id="eloyekunle_permissions.permissions.controller" class="Eloyekunle\PermissionsBundle\Controller\PermissionsController" public="true">
-            <argument id="eloyekunle_permissions.permissions.handler" type="service" />
+            <argument id="eloyekunle_permissions.module.handler" type="service" />
         </service>
     </services>
 

@@ -8,4 +8,6 @@
             resource="@EloyekunlePermissionsBundle/Resources/config/routing/role.xml"/>
     <import
             resource="@EloyekunlePermissionsBundle/Resources/config/routing/permissions.xml"/>
+    <import
+            resource="@EloyekunlePermissionsBundle/Resources/config/routing/module.xml" />
 </routes>

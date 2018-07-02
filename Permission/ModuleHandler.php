@@ -30,13 +30,27 @@ class ModuleHandler implements ModuleHandlerInterface
         foreach ($definitionsFiles as $definitionsFile) {
             $module = YamlDiscovery::decode($definitionsFile);
             $moduleName = $module['name'];
-            $modules[basename($definitionsFile, '.yaml')] = [
+            $modules[] = [
+              'key' => basename($definitionsFile, '.yaml'),
               'name' => $moduleName,
-              'path' => $definitionsFile,
-              'permissions' => $module['permissions'],
+              'permissions' => $this->parsePermissions($module['permissions']),
             ];
         }
 
         return $modules;
+    }
+
+    private function parsePermissions(array $permissions): array {
+        $multiDimPermissions = [];
+        foreach ($permissions as $key => $value) {
+            $multiDimPermissions[] = ['key' => $key] + $value;
+        }
+
+        return $multiDimPermissions;
+    }
+
+    public function getModuleNames()
+    {
+
     }
 }

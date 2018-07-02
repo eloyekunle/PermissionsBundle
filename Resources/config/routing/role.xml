@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-<route id="eloyekunle_permissions_get_all_roles" path="/eloyekunle-roles" methods="GET POST">
+<route id="eloyekunle_permissions_roles_get_all" path="/eloyekunle-roles" methods="GET POST">
     <default key="_controller">eloyekunle_permissions.role.controller:getAll</default>
 </route>
 
