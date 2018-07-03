@@ -6,27 +6,13 @@
 
     <mapped-superclass name="Eloyekunle\PermissionsBundle\Model\User">
 
-        <id name="id" column="user_id" type="integer">
-            <generator strategy="IDENTITY" />
-            <sequence-generator sequence-name="subportal.users_user_id_seq" allocation-size="1" initial-value="1" />
-        </id>
-
         <field name="username" column="username" type="string" length="180" nullable="false" unique="true" />
 
         <field name="email" column="email" type="string" length="180" nullable="false" unique="true" />
 
         <field name="password" column="password" type="string" />
 
-        <many-to-many field="roles" target-entity="Eloyekunle\PermissionsBundle\Model\Role">
-            <join-table name="users_roles">
-                <join-columns>
-                    <join-column name="user_id" referenced-column-name="user_id" />
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column name="role_id" referenced-column-name="role_id" />
-                </inverse-join-columns>
-            </join-table>
-        </many-to-many>
+        <many-to-many field="roles" target-entity="Eloyekunle\PermissionsBundle\Model\Role" />
 
     </mapped-superclass>
 

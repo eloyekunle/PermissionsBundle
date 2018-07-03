@@ -13,4 +13,11 @@ namespace Eloyekunle\PermissionsBundle\Model;
 
 abstract class RoleManager implements RoleManagerInterface
 {
+    public function createRole()
+    {
+        $class = $this->getClass();
+        $role = new $class();
+
+        return $role;
+    }
 }

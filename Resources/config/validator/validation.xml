@@ -6,12 +6,6 @@
         http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
     <class name="Eloyekunle\PermissionsBundle\Model\User">
-        <property name="name">
-            <constraint name="NotBlank" />
-        </property>
-    </class>
-
-    <class name="Eloyekunle\PermissionsBundle\Model\Role">
         <property name="username">
             <constraint name="NotBlank" />
         </property>

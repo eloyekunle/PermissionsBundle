@@ -13,6 +13,7 @@ namespace Eloyekunle\PermissionsBundle\Doctrine;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
+use Eloyekunle\PermissionsBundle\Model\RoleInterface;
 use Eloyekunle\PermissionsBundle\Model\RoleManager as BaseRoleManager;
 
 class RoleManager extends BaseRoleManager
@@ -35,6 +36,9 @@ class RoleManager extends BaseRoleManager
         $this->class = $metadata->getName();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function findRoles()
     {
         return $this->repository->findAll();
@@ -58,5 +62,30 @@ class RoleManager extends BaseRoleManager
         }
 
         return $hasPermission;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getClass()
+    {
+        if (false !== strpos($this->class, ':')) {
+            $metadata = $this->objectManager->getClassMetadata($this->class);
+            $this->class = $metadata->getName();
+        }
+
+        return $this->class;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function updateRole(RoleInterface $role, $andFlush = true)
+    {
+        $this->objectManager->persist($role);
+
+        if ($andFlush) {
+            $this->objectManager->flush();
+        }
     }
 }

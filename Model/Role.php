@@ -11,7 +11,7 @@
 
 namespace Eloyekunle\PermissionsBundle\Model;
 
-class Role implements RoleInterface
+abstract class Role implements RoleInterface
 {
     /**
      * The machine name of this role.

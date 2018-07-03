@@ -16,4 +16,28 @@ interface RoleManagerInterface
     public function findRoles();
 
     public function isPermissionInRoles($permission, array $roles);
+
+    /**
+     * Creates and empty role.
+     *
+     * @return RoleInterface
+     */
+    public function createRole();
+
+    /**
+     * Returns the role's fully qualified class name.
+     *
+     * @return string
+     */
+    public function getClass();
+
+    /**
+     * Updates a role.
+     *
+     * @param \Eloyekunle\PermissionsBundle\Model\RoleInterface $role
+     * @param bool                                              $andFlush
+     *
+     * @return mixed
+     */
+    public function updateRole(RoleInterface $role, $andFlush = true);
 }

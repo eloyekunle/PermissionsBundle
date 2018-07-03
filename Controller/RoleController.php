@@ -12,7 +12,11 @@
 namespace Eloyekunle\PermissionsBundle\Controller;
 
 use Eloyekunle\PermissionsBundle\Doctrine\RoleManager;
+use Eloyekunle\PermissionsBundle\Form\Type\RoleFormType;
+use Eloyekunle\PermissionsBundle\Model\RoleManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class RoleController extends Controller
@@ -20,7 +24,7 @@ class RoleController extends Controller
     /** @var RoleManager */
     private $roleManager;
 
-    public function __construct(RoleManager $roleManager)
+    public function __construct(RoleManagerInterface $roleManager)
     {
         $this->roleManager = $roleManager;
     }
@@ -35,7 +39,16 @@ class RoleController extends Controller
         );
     }
 
-    public function create(): Response
+    public function create(Request $request): Response
     {
+        $role = $this->roleManager->createRole();
+        $form = $this->createForm(RoleFormType::class, $role);
+        $form->submit($request->request->all());
+
+        if ($form->isValid()) {
+            $this->roleManager->updateRole($role);
+
+            return new JsonResponse($role);
+        }
     }
 }
