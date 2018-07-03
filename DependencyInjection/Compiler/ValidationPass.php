@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace FOS\UserBundle\DependencyInjection\Compiler;
+namespace Eloyekunle\PermissionsBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -39,8 +39,8 @@ class ValidationPass implements CompilerPassInterface
 
         $validatorBuilder = $container->getDefinition('validator.builder');
         $validatorBuilder->addMethodCall(
-          'addXmlMapping',
-          [$validationFile, $configDir.'/validator/validation.xml']
+          'addXmlMappings',
+          [[$validationFile, $configDir.'/validator/validation.xml']]
         );
     }
 }

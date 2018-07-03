@@ -12,7 +12,7 @@
 namespace Eloyekunle\PermissionsBundle;
 
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
-use FOS\UserBundle\DependencyInjection\Compiler\ValidationPass;
+use Eloyekunle\PermissionsBundle\DependencyInjection\Compiler\ValidationPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
