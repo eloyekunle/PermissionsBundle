@@ -6,12 +6,6 @@
 
     <mapped-superclass name="Eloyekunle\PermissionsBundle\Model\User">
 
-        <field name="username" column="username" type="string" length="180" nullable="false" unique="true" />
-
-        <field name="email" column="email" type="string" length="180" nullable="false" unique="true" />
-
-        <field name="password" column="password" type="string" />
-
         <many-to-many field="roles" target-entity="Eloyekunle\PermissionsBundle\Model\Role" />
 
     </mapped-superclass>
