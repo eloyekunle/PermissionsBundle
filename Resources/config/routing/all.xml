@@ -4,10 +4,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <import
-            resource="@EloyekunlePermissionsBundle/Resources/config/routing/role.xml"/>
-    <import
-            resource="@EloyekunlePermissionsBundle/Resources/config/routing/permissions.xml"/>
+    <!--<import-->
+            <!--resource="@EloyekunlePermissionsBundle/Resources/config/routing/role.xml"/>-->
+    <!--<import-->
+            <!--resource="@EloyekunlePermissionsBundle/Resources/config/routing/permissions.xml"/>-->
     <import
             resource="@EloyekunlePermissionsBundle/Resources/config/routing/module.xml" />
 </routes>

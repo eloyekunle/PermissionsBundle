@@ -7,5 +7,5 @@ Eloyekunle\PermissionsBundle\Model\User:
             expose: true
         email:
             expose: true
-        roles:
+        userRoles:
             expose: true

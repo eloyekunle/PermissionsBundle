@@ -106,25 +106,27 @@ interface UserInterface extends BaseUserInterface, \Serializable
      *
      * This overwrites any previous roles.
      *
-     * @param array $roles
+     * @param \Eloyekunle\PermissionsBundle\Model\RoleInterface[] $roles
      *
      * @return static
      */
-    public function setRoles(array $roles);
+    public function setUserRoles(array $roles);
+
+    public function getUserRoles();
 
     /**
      * Add a role to a user.
      *
-     * @param string $role
-     *                     The role ID to add
+     * @param \Eloyekunle\PermissionsBundle\Model\RoleInterface $role
+     *                                                                The role ID to add
      */
-    public function addRole($role);
+    public function addRole(RoleInterface $role);
 
     /**
      * Remove a role from a user.
      *
-     * @param string $role
-     *                     The role ID to remove
+     * @param \Eloyekunle\PermissionsBundle\Model\RoleInterface $role
+     *                                                                The role ID to remove
      */
-    public function removeRole($role);
+    public function removeRole(RoleInterface $role);
 }

@@ -13,7 +13,7 @@ namespace Eloyekunle\PermissionsBundle\Controller;
 
 use Eloyekunle\PermissionsBundle\Doctrine\RoleManager;
 use Eloyekunle\PermissionsBundle\Form\Type\RoleFormType;
-use Eloyekunle\PermissionsBundle\Model\Role;
+use Eloyekunle\PermissionsBundle\Model\RoleInterface;
 use Eloyekunle\PermissionsBundle\Model\RoleManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormInterface;
@@ -56,7 +56,7 @@ class RoleController extends Controller
         return new JsonResponse(self::getErrorsFromForm($form), Response::HTTP_BAD_REQUEST);
     }
 
-    public function edit(Role $role, Request $request): Response
+    public function edit(RoleInterface $role, Request $request): Response
     {
         $form = $this->createForm(RoleFormType::class, $role);
         $form->submit($request->request->all(), false);

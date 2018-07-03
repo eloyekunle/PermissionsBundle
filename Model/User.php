@@ -22,31 +22,14 @@ abstract class User implements UserInterface
     /**
      * @var Role[]|Collection
      */
-    protected $roles;
+    protected $userRoles;
 
     /**
      * User constructor.
      */
     public function __construct()
     {
-        $this->roles = new ArrayCollection();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addRole($role)
-    {
-        $role = strtoupper($role);
-        if (Role::ROLE_DEFAULT === $role) {
-            return $this;
-        }
-
-        if (!in_array($role, $this->roles, true)) {
-            $this->roles[] = $role;
-        }
-
-        return $this;
+        $this->userRoles = new ArrayCollection();
     }
 
     /**
@@ -76,42 +59,35 @@ abstract class User implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function removeRole($role)
+    public function removeRole(RoleInterface $role)
     {
-        if (false !== $key = array_search(
-            strtoupper($role),
-            $this->roles,
-            true
-          )) {
-            unset($this->roles[$key]);
-            $this->roles = array_values($this->roles);
+        if (!$this->userRoles->contains($role)) {
+            return;
         }
 
-        return $this;
+        $this->userRoles->remove($role);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setSuperAdmin($boolean)
+    public function addRole(RoleInterface $role)
     {
-        if (true === $boolean) {
-            $this->addRole(Role::ROLE_SUPER_ADMIN);
-        } else {
-            $this->removeRole(Role::ROLE_SUPER_ADMIN);
+        if ($this->userRoles->contains($role)) {
+            return;
         }
 
-        return $this;
+        $this->userRoles->add($role);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setRoles(array $roles)
+    public function setUserRoles(array $userRoles)
     {
-        $this->roles = [];
+        $this->userRoles = [];
 
-        foreach ($roles as $role) {
+        foreach ($userRoles as $role) {
             $this->addRole($role);
         }
 
@@ -122,7 +98,7 @@ abstract class User implements UserInterface
     {
         $hasPermission = false;
 
-        foreach ($this->getRoleEntities() as $role) {
+        foreach ($this->getUserRoles() as $role) {
             if ($role->isSuperAdmin() || $role->hasPermission($permission)) {
                 $hasPermission = true;
                 break;
@@ -132,25 +108,25 @@ abstract class User implements UserInterface
         return $hasPermission;
     }
 
+    /**
+     * @return Role[]
+     */
+    public function getUserRoles()
+    {
+        $roles = $this->userRoles;
+
+        return $roles;
+    }
+
     private function getRoleNames()
     {
         $roleNames = [];
-        $roles = $this->getRoleEntities();
+        $roles = $this->getUserRoles();
 
         foreach ($roles as $role) {
             $roleNames[] = $role->getName();
         }
 
         return array_unique($roleNames);
-    }
-
-    /**
-     * @return Role[]
-     */
-    private function getRoleEntities()
-    {
-        $roles = $this->roles;
-
-        return $roles;
     }
 }
