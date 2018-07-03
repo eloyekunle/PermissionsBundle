@@ -12,4 +12,9 @@
         <default key="_controller">eloyekunle_permissions.role.controller:create</default>
     </route>
 
+    <route id="eloyekunle_permissions_roles_edit" path="/roles/{id}" methods="PUT">
+        <default key="_controller">eloyekunle_permissions.role.controller:edit</default>
+        <requirement key="id">\d+</requirement>
+    </route>
+
 </routes>

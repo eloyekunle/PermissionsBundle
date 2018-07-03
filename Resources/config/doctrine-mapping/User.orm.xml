@@ -6,7 +6,16 @@
 
     <mapped-superclass name="Eloyekunle\PermissionsBundle\Model\User">
 
-        <many-to-many field="roles" target-entity="Eloyekunle\PermissionsBundle\Model\Role" />
+        <many-to-many field="roles" target-entity="Eloyekunle\PermissionsBundle\Model\Role">
+            <!--<join-table name="users_roles">-->
+                <!--<join-columns>-->
+                    <!--<join-column name="user_id" referenced-column-name="user_id" />-->
+                <!--</join-columns>-->
+                <!--<inverse-join-columns>-->
+                    <!--<join-column name="role_id" referenced-column-name="role_id" />-->
+                <!--</inverse-join-columns>-->
+            <!--</join-table>-->
+        </many-to-many>
 
     </mapped-superclass>
 

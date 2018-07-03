@@ -40,4 +40,22 @@ interface RoleManagerInterface
      * @return mixed
      */
     public function updateRole(RoleInterface $role, $andFlush = true);
+
+    /**
+     * Finds one role by criteria.
+     *
+     * @param array $criteria
+     *
+     * @return RoleInterface|null
+     */
+    public function findRoleBy(array $criteria);
+
+    /**
+     * Find one role by ID.
+     *
+     * @param int $id
+     *
+     * @return RoleInterface|null
+     */
+    public function find(int $id);
 }

@@ -74,7 +74,7 @@ abstract class Role implements RoleInterface
             return [];
         }
 
-        return array_unique($this->permissions);
+        return $this->permissions;
     }
 
     /**

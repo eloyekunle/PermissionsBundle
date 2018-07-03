@@ -31,9 +31,14 @@ class RoleFormType extends AbstractType
     {
         $builder
           ->add('name', TextType::class)
-          ->add('permissions', CollectionType::class, [
-            'entry_type' => TextType::class,
-          ]);
+          ->add(
+            'permissions',
+            CollectionType::class,
+            [
+              'entry_type' => TextType::class,
+              'allow_add' => true,
+            ]
+          );
     }
 
     public function configureOptions(OptionsResolver $resolver)
