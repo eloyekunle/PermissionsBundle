@@ -85,6 +85,9 @@ abstract class Role implements RoleInterface
         $this->permissions = [];
 
         foreach ($permissions as $permission) {
+            if (!$permission) {
+                break;
+            }
             $this->grantPermission($permission);
         }
 

@@ -50,6 +50,22 @@ class ModuleHandler implements ModuleHandlerInterface
     {
     }
 
+    public function getPermissions()
+    {
+        $permissions = [];
+        $modules = $this->getModuleList();
+        foreach ($modules as $module) {
+            foreach ($module['permissions'] as $permission) {
+                $permissions[] = [
+                  'key' => $permission['key'],
+                    'provider' => $module['name'],
+                ];
+            }
+        }
+
+        return $permissions;
+    }
+
     private function parsePermissions(array $permissions): array
     {
         $multiDimPermissions = [];

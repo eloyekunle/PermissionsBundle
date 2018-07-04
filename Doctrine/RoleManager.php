@@ -98,4 +98,10 @@ class RoleManager extends BaseRoleManager
     {
         return $this->repository->find($id);
     }
+
+    public function deleteRole(RoleInterface $role)
+    {
+        $this->objectManager->remove($role);
+        $this->objectManager->flush();
+    }
 }

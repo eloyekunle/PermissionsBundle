@@ -9,6 +9,9 @@
             <option name="fields">name</option>
             <option name="errorPath">name</option>
             <option name="message">Role name already taken.</option>
+            <option name="groups">
+                <value>Registration</value>
+            </option>
         </constraint>
     </class>
 

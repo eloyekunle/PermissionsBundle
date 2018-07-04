@@ -24,7 +24,12 @@ class PermissionsController extends Controller
         $this->moduleHandler = $moduleHandler;
     }
 
-    public function getAll()
+    public function getPermissions()
+    {
+        return new JsonResponse($this->moduleHandler->getPermissions());
+    }
+
+    public function getModules()
     {
         return new JsonResponse($this->moduleHandler->getModuleList());
     }

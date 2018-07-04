@@ -21,4 +21,6 @@ interface ModuleHandlerInterface
     public function getModuleList();
 
     public function getModuleNames();
+
+    public function getPermissions();
 }

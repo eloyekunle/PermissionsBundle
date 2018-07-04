@@ -16,63 +16,6 @@ use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 interface UserInterface extends BaseUserInterface, \Serializable
 {
     /**
-     * Returns the user unique id.
-     *
-     * @return int
-     */
-    public function getId();
-
-    /**
-     * Sets the username.
-     *
-     * @param string $username
-     *
-     * @return static
-     */
-    public function setUsername($username);
-
-    /**
-     * Gets email.
-     *
-     * @return string
-     */
-    public function getEmail();
-
-    /**
-     * Sets the email.
-     *
-     * @param string $email
-     *
-     * @return static
-     */
-    public function setEmail($email);
-
-    /**
-     * Gets the plain password.
-     *
-     * @return string
-     */
-    public function getPlainPassword();
-
-    /**
-     * Sets the plain password.
-     *
-     * @param string $password
-     *
-     * @return static
-     */
-    public function setPlainPassword($password);
-
-    /**
-     * Sets the hashed password.
-     *
-     * @param string $password
-     *
-     * @return static
-     */
-    public function setPassword($password);
-
-    /**
      * Tells if the the given user has the super admin role.
      *
      * @return bool
@@ -112,13 +55,16 @@ interface UserInterface extends BaseUserInterface, \Serializable
      */
     public function setUserRoles(array $roles);
 
+    /**
+     * @return \Eloyekunle\PermissionsBundle\Model\RoleInterface[]|null
+     */
     public function getUserRoles();
 
     /**
      * Add a role to a user.
      *
      * @param \Eloyekunle\PermissionsBundle\Model\RoleInterface $role
-     *                                                                The role ID to add
+     *                                                                The role to add
      */
     public function addRole(RoleInterface $role);
 
@@ -126,7 +72,7 @@ interface UserInterface extends BaseUserInterface, \Serializable
      * Remove a role from a user.
      *
      * @param \Eloyekunle\PermissionsBundle\Model\RoleInterface $role
-     *                                                                The role ID to remove
+     *                                                                The role to remove
      */
     public function removeRole(RoleInterface $role);
 }

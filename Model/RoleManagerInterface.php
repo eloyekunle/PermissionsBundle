@@ -58,4 +58,13 @@ interface RoleManagerInterface
      * @return RoleInterface|null
      */
     public function find(int $id);
+
+    /**
+     * Deletes a role.
+     *
+     * @param \Eloyekunle\PermissionsBundle\Model\RoleInterface $role
+     *
+     * @return void
+     */
+    public function deleteRole(RoleInterface $role);
 }
