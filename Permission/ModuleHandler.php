@@ -58,8 +58,26 @@ class ModuleHandler implements ModuleHandlerInterface
             foreach ($module['permissions'] as $permission) {
                 $permissions[] = [
                   'key' => $permission['key'],
-                    'provider' => $module['name'],
+                  'provider' => $module['name'],
                 ];
+            }
+        }
+
+        return $permissions;
+    }
+
+    /**
+     * Transforms all permissions into ["MODULE_Permission_Name" => "permission_name"].
+     *
+     * @return array
+     */
+    public function getPermissionsCanonical()
+    {
+        $permissions = [];
+        $modules = $this->getModuleList();
+        foreach ($modules as $module) {
+            foreach ($module['permissions'] as $permission) {
+                $permissions[strtoupper($module['key']).'_'.str_replace(' ', '_', ucwords($permission['key']))] = $permission['key'];
             }
         }
 
