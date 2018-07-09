@@ -25,6 +25,15 @@ class RoleTest extends TestCase
         $this->assertSame('System Administrator', $role->getName());
     }
 
+    public function testGrantPermission()
+    {
+        $role = $this->getRole();
+        $this->assertFalse($role->hasPermission('Administer Systems'));
+
+        $role->grantPermission('Administer Systems');
+        $this->assertTrue($role->hasPermission('Administer Systems'));
+    }
+
     /**
      * @return Role
      *
