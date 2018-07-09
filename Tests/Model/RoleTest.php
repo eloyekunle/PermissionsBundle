@@ -1,0 +1,37 @@
+<?php
+
+/*
+ * This file is part of the EloyekunlePermissionsBundle package.
+ *
+ * (c) Elijah Oyekunle <https://elijahoyekunle.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Eloyekunle\PermissionsBundle\Tests\Model;
+
+use Eloyekunle\PermissionsBundle\Model\Role;
+use PHPUnit\Framework\TestCase;
+
+class RoleTest extends TestCase
+{
+    public function testName()
+    {
+        $role = $this->getRole();
+        $this->assertNull($role->getName());
+
+        $role->setName('System Administrator');
+        $this->assertSame('System Administrator', $role->getName());
+    }
+
+    /**
+     * @return Role
+     *
+     * @throws \ReflectionException
+     */
+    protected function getRole()
+    {
+        return $this->getMockForAbstractClass('Eloyekunle\PermissionsBundle\Model\Role');
+    }
+}
