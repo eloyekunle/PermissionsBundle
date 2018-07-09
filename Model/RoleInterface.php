@@ -26,7 +26,7 @@ interface RoleInterface
     /**
      * @return int
      */
-    public function getId(): int;
+    public function getId();
 
     /**
      * @return null|string
@@ -36,7 +36,7 @@ interface RoleInterface
     /**
      * @param null|string $name
      */
-    public function setName(?string $name);
+    public function setName($name);
 
     /**
      * Returns a list of permissions assigned to the role.

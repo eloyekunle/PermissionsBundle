@@ -51,8 +51,8 @@ class EloyekunlePermissionsExtension extends Extension
         $config = $processor->processConfiguration($configuration, $configs);
 
         $loader = new XmlFileLoader(
-          $container,
-          new FileLocator(__DIR__.'/../Resources/config')
+            $container,
+            new FileLocator(__DIR__.'/../Resources/config')
         );
 
         if ('custom' !== $config['db_driver']) {
@@ -71,10 +71,10 @@ class EloyekunlePermissionsExtension extends Extension
         }
 
         $this->remapParametersNamespaces($config, $container, array(
-          '' => array(
+            '' => array(
             'db_driver' => 'eloyekunle_permissions.storage',
             'role_class' => 'eloyekunle_permissions.model.role.class',
-          ),
+            ),
         ));
 
         $this->loadRole($config, $container, $loader);
@@ -143,9 +143,9 @@ class EloyekunlePermissionsExtension extends Extension
         $loader->load('module.xml');
 
         $this->remapParametersNamespaces($config, $container, [
-          '' => [
+            '' => [
             'definitions_path' => 'eloyekunle_permissions.module.definitions_path',
-          ],
+            ],
         ]);
     }
 }

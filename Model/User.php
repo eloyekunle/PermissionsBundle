@@ -94,6 +94,9 @@ abstract class User implements UserInterface
         return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function hasPermission($permission)
     {
         $hasPermission = false;

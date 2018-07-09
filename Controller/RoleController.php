@@ -31,17 +31,17 @@ class RoleController extends Controller
         $this->roleManager = $roleManager;
     }
 
-    public function getAll(): Response
+    public function getAll()
     {
         return $this->render(
-          '@EloyekunlePermissions/Role/list.html.twig',
-          [
+            '@EloyekunlePermissions/Role/list.html.twig',
+            [
             'roles' => $this->roleManager->findRoles(),
-          ]
+            ]
         );
     }
 
-    public function create(Request $request): Response
+    public function create(Request $request)
     {
         $role = $this->roleManager->createRole();
         $form = $this->createForm(RoleFormType::class, $role);
@@ -56,7 +56,7 @@ class RoleController extends Controller
         return new JsonResponse(self::getErrorsFromForm($form), Response::HTTP_BAD_REQUEST);
     }
 
-    public function edit(RoleInterface $role, Request $request): Response
+    public function edit(RoleInterface $role, Request $request)
     {
         $form = $this->createForm(RoleFormType::class, $role);
         $form->submit($request->request->all(), false);

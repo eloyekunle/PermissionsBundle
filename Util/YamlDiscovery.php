@@ -15,12 +15,12 @@ use Symfony\Component\Yaml\Yaml;
 
 class YamlDiscovery
 {
-    public static function decode(string $filePath)
+    public static function decode($filePath)
     {
         return Yaml::parseFile($filePath);
     }
 
-    public static function getFilesInPath(string $path): array
+    public static function getFilesInPath($path)
     {
         return ScanDir::scan($path, ['yaml']);
     }

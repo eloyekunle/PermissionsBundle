@@ -35,20 +35,20 @@ class EloyekunlePermissionsBundle extends Bundle
     private function addRegisterMappingsPass(ContainerBuilder $container)
     {
         $mappings = [
-          realpath(
+        realpath(
             __DIR__.'/Resources/config/doctrine-mapping'
-          ) => 'Eloyekunle\PermissionsBundle\Model',
+        ) => 'Eloyekunle\PermissionsBundle\Model',
         ];
 
         if (class_exists(
-          'Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass'
+            'Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass'
         )) {
             $container->addCompilerPass(
-              DoctrineOrmMappingsPass::createXmlMappingDriver(
-                $mappings,
-                ['eloyekunle_permissions.model_manager_name'],
-                'eloyekunle_permissions.backend_type_orm'
-              )
+                DoctrineOrmMappingsPass::createXmlMappingDriver(
+                    $mappings,
+                    ['eloyekunle_permissions.model_manager_name'],
+                    'eloyekunle_permissions.backend_type_orm'
+                )
             );
         }
     }

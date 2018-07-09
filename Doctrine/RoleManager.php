@@ -89,12 +89,12 @@ class RoleManager extends BaseRoleManager
         }
     }
 
-    public function findRoleBy(array $criteria): ?RoleInterface
+    public function findRoleBy(array $criteria)
     {
         return $this->repository->findOneBy($criteria);
     }
 
-    public function find(int $id): ?RoleInterface
+    public function find($id)
     {
         return $this->repository->find($id);
     }

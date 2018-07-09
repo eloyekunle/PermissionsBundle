@@ -57,7 +57,7 @@ interface RoleManagerInterface
      *
      * @return RoleInterface|null
      */
-    public function find(int $id);
+    public function find($id);
 
     /**
      * Deletes a role.

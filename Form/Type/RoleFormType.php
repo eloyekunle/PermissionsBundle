@@ -27,27 +27,33 @@ class RoleFormType extends AbstractType
         $this->class = $class;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
           ->add('name', TextType::class)
-          ->add(
+        ->add(
             'permissions',
             CollectionType::class,
             [
               'entry_type' => TextType::class,
               'allow_add' => true,
-            ]
-          );
+              ]
+        );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
-          [
+            [
             'data_class' => $this->class,
             'csrf_protection' => false,
-          ]
+            ]
         );
     }
 }

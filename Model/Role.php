@@ -42,7 +42,7 @@ abstract class Role implements RoleInterface
     /**
      * {@inheritdoc}
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -50,7 +50,7 @@ abstract class Role implements RoleInterface
     /**
      * {@inheritdoc}
      */
-    public function getName(): ?string
+    public function getName()
     {
         return $this->name;
     }
@@ -58,7 +58,7 @@ abstract class Role implements RoleInterface
     /**
      * {@inheritdoc}
      */
-    public function setName(?string $name)
+    public function setName($name)
     {
         $this->name = $name;
 

@@ -66,7 +66,6 @@ class ScanDir
         foreach ($paths as $path) {
             if (is_dir($path)) {
                 self::$directories[] = $path;
-                $dirContents = self::find_contents($path);
             } else {
                 $path_errors[] = $path;
             }

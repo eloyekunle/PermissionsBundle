@@ -18,7 +18,7 @@ class ModuleHandler implements ModuleHandlerInterface
     /** @var string */
     protected $definitionsPath;
 
-    public function __construct(string $definitionsPath)
+    public function __construct($definitionsPath)
     {
         $this->definitionsPath = $definitionsPath;
     }
@@ -26,11 +26,11 @@ class ModuleHandler implements ModuleHandlerInterface
     /**
      * {@inheritdoc}
      */
-    public function getModuleList(): array
+    public function getModuleList()
     {
         $modules = [];
         $definitionsFiles = YamlDiscovery::getFilesInPath(
-          $this->definitionsPath
+            $this->definitionsPath
         );
 
         foreach ($definitionsFiles as $definitionsFile) {
@@ -84,7 +84,7 @@ class ModuleHandler implements ModuleHandlerInterface
         return $permissions;
     }
 
-    private function parsePermissions(array $permissions): array
+    private function parsePermissions(array $permissions)
     {
         $multiDimPermissions = [];
         foreach ($permissions as $key => $value) {
