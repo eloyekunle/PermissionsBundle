@@ -34,6 +34,16 @@ class RoleTest extends TestCase
         $this->assertTrue($role->hasPermission('Administer Systems'));
     }
 
+    public function testRevokePermission()
+    {
+        $role = $this->getRole();
+        $role->grantPermission('Administer Systems');
+        $this->assertTrue($role->hasPermission('Administer Systems'));
+
+        $role->revokePermission('Administer Systems');
+        $this->assertFalse($role->hasPermission('Administer Systems'));
+    }
+
     /**
      * @return Role
      *
