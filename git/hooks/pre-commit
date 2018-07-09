@@ -16,6 +16,7 @@ if ${HAS_PHP_CS_FIXER}; then
         ${PHP_CS_FIXER} fix --verbose "$line";
         git add "$line";
     done
+    git add .
 else
     echo ""
     echo "Please install php-cs-fixer, e.g.:"
