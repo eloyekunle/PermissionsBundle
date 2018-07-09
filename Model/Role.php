@@ -139,7 +139,7 @@ abstract class Role implements RoleInterface
      */
     public function isSuperAdmin()
     {
-        return $this->getName() == static::ROLE_SUPER_ADMIN;
+        return $this->getName() === static::ROLE_SUPER_ADMIN;
     }
 
     public function prePersist()

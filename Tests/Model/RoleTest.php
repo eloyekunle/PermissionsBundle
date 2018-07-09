@@ -12,6 +12,7 @@
 namespace Eloyekunle\PermissionsBundle\Tests\Model;
 
 use Eloyekunle\PermissionsBundle\Model\Role;
+use Eloyekunle\PermissionsBundle\Model\RoleInterface;
 use PHPUnit\Framework\TestCase;
 
 class RoleTest extends TestCase
@@ -41,6 +42,18 @@ class RoleTest extends TestCase
         $this->assertTrue($role->hasPermission('Administer Systems'));
 
         $role->revokePermission('Administer Systems');
+        $this->assertFalse($role->hasPermission('Administer Systems'));
+    }
+
+    public function testSuperAdminPermissions()
+    {
+        $role = $this->getRole();
+        $this->assertFalse($role->hasPermission('Administer Systems'));
+
+        $role->setName(RoleInterface::ROLE_SUPER_ADMIN);
+        $this->assertTrue($role->hasPermission('Administer Systems'));
+
+        $role->setName('Not Admin');
         $this->assertFalse($role->hasPermission('Administer Systems'));
     }
 
