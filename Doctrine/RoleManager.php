@@ -39,14 +39,6 @@ class RoleManager extends BaseRoleManager
     /**
      * {@inheritdoc}
      */
-    public function findRoles()
-    {
-        return $this->repository->findAll();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function isPermissionInRoles($permission, array $roles)
     {
         $hasPermission = false;
@@ -80,6 +72,30 @@ class RoleManager extends BaseRoleManager
     /**
      * {@inheritdoc}
      */
+    public function findRoles()
+    {
+        return $this->repository->findAll();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findRoleBy(array $criteria)
+    {
+        return $this->repository->findOneBy($criteria);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findRole($id)
+    {
+        return $this->repository->find($id);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function updateRole(RoleInterface $role, $andFlush = true)
     {
         $this->objectManager->persist($role);
@@ -89,16 +105,9 @@ class RoleManager extends BaseRoleManager
         }
     }
 
-    public function findRoleBy(array $criteria)
-    {
-        return $this->repository->findOneBy($criteria);
-    }
-
-    public function find($id)
-    {
-        return $this->repository->find($id);
-    }
-
+    /**
+     * {@inheritdoc}
+     */
     public function deleteRole(RoleInterface $role)
     {
         $this->objectManager->remove($role);
