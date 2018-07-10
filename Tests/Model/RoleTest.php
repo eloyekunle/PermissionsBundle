@@ -57,6 +57,18 @@ class RoleTest extends TestCase
         $this->assertFalse($role->hasPermission('Administer Systems'));
     }
 
+    public function testSetPermissions()
+    {
+        $role = $this->getRole();
+        $this->assertFalse($role->hasPermission('Administer Systems'));
+        $this->assertFalse($role->hasPermission('View Reports'));
+
+        $permissions = ['Administer Systems', 'View Reports'];
+        $role->setPermissions($permissions);
+        $this->assertTrue($role->hasPermission('Administer Systems'));
+        $this->assertTrue($role->hasPermission('View Reports'));
+    }
+
     /**
      * @return Role
      *
