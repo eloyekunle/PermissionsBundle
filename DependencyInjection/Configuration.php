@@ -55,7 +55,7 @@ class Configuration implements ConfigurationInterface
             ->addDefaultsIfNotSet()
             ->canBeUnset()
             ->children()
-              ->scalarNode('definitions_path')->defaultValue('config/modules')
+              ->scalarNode('definitions_path')->defaultNull()->isRequired()
             ->end();
     }
 }
