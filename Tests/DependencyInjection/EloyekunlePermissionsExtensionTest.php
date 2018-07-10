@@ -56,6 +56,16 @@ class EloyekunlePermissionsExtensionTest extends TestCase
         $this->extension->load([$config], $this->container);
     }
 
+    /**
+     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     */
+    public function testLoadThrowsExceptionUnlessDatabaseDriverIsValid()
+    {
+        $config = $this->getEmptyConfig();
+        $config['db_driver'] = 'bar';
+        $this->extension->load([$config], $this->container);
+    }
+
     protected function createEmptyConfig()
     {
         $config = $this->getEmptyConfig();
