@@ -16,9 +16,13 @@ class ModuleHandler implements ModuleHandlerInterface
     /** @var string */
     protected $definitionsPath;
 
+    /** @var array */
+    protected $modules;
+
     public function __construct($definitionsPath)
     {
         $this->definitionsPath = $definitionsPath;
+        $this->modules = $this->getModuleList();
     }
 
     /**
@@ -50,8 +54,7 @@ class ModuleHandler implements ModuleHandlerInterface
     public function getPermissions()
     {
         $permissions = [];
-        $modules = $this->getModuleList();
-        foreach ($modules as $module) {
+        foreach ($this->modules as $module) {
             foreach ($module['permissions'] as $permission) {
                 $permissions[] = [
                   'key' => $permission['key'],
@@ -69,7 +72,7 @@ class ModuleHandler implements ModuleHandlerInterface
     public function getModuleNames()
     {
         $modules = [];
-        foreach ($this->getModuleList() as $moduleId => $module) {
+        foreach ($this->modules as $moduleId => $module) {
             $modules[$moduleId] = $module['name'];
         }
 
@@ -84,10 +87,26 @@ class ModuleHandler implements ModuleHandlerInterface
     public function getPermissionsCanonical()
     {
         $permissions = [];
-        $modules = $this->getModuleList();
-        foreach ($modules as $module) {
+        foreach ($this->modules as $module) {
             foreach ($module['permissions'] as $permission) {
                 $permissions[strtoupper($module['key']).'_'.str_replace(' ', '_', ucwords($permission['key']))] = $permission['key'];
+            }
+        }
+
+        return $permissions;
+    }
+
+    /**
+     * Transforms all permissions into ["permission1", "permission2"].
+     *
+     * @return array
+     */
+    public function getPermissionsArray()
+    {
+        $permissions = [];
+        foreach ($this->modules as $module) {
+            foreach ($module['permissions'] as $permission) {
+                $permissions[] = $permission['key'];
             }
         }
 
