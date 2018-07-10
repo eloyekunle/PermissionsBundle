@@ -66,6 +66,21 @@ class EloyekunlePermissionsExtensionTest extends TestCase
         $this->extension->load([$config], $this->container);
     }
 
+    public function testLoadManagerClassWithDefaults()
+    {
+        $this->createEmptyConfig();
+
+        $this->assertParameter('mongodb', 'eloyekunle_permissions.storage');
+        $this->assertAlias('eloyekunle_permissions.role_manager.default', 'eloyekunle_permissions.role_manager');
+    }
+
+    public function testModelClassWithDefaults()
+    {
+        $this->createEmptyConfig();
+
+        $this->assertParameter('Acme\MyBundle\Document\Role', 'eloyekunle_permissions.model.role.class');
+    }
+
     protected function createEmptyConfig()
     {
         $config = $this->getEmptyConfig();
@@ -88,7 +103,7 @@ class EloyekunlePermissionsExtensionTest extends TestCase
     protected function getEmptyConfig()
     {
         $yaml = <<<EOF
-db_driver: orm
+db_driver: mongodb
 role_class: Acme\MyBundle\Document\Role
 EOF;
         $parser = new Parser();
@@ -104,7 +119,10 @@ EOF;
     protected function getFullConfig()
     {
         $yaml = <<<EOF
-
+db_driver: orm
+role_class: Acme\MyBundle\Document\Role
+module:
+    definitions_path: /var/www/config/modules
 EOF;
         $parser = new Parser();
 
