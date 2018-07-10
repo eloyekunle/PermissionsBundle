@@ -34,4 +34,11 @@ interface ModuleHandlerInterface
      *                  Returns the human readable names of all modules keyed by machine name
      */
     public function getModuleNames();
+
+    /**
+     * Transforms all permissions into ["permission1", "permission2"].
+     *
+     * @return array
+     */
+    public function getPermissionsArray();
 }

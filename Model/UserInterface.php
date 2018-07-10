@@ -11,9 +11,7 @@
 
 namespace Eloyekunle\PermissionsBundle\Model;
 
-use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
-
-interface UserInterface extends BaseUserInterface, \Serializable
+interface UserInterface
 {
     /**
      * Tells if the the given user has the super admin role.

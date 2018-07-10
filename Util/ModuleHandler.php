@@ -31,17 +31,15 @@ class ModuleHandler implements ModuleHandlerInterface
     public function getModuleList()
     {
         $modules = [];
-        $definitionsFiles = YamlDiscovery::getFilesInPath(
-            $this->definitionsPath
-        );
+        $definitionsFiles = YamlDiscovery::getFilesInPath($this->definitionsPath);
 
         foreach ($definitionsFiles as $definitionsFile) {
             $module = YamlDiscovery::decode($definitionsFile);
             $moduleName = $module['name'];
             $modules[] = [
-              'key' => basename($definitionsFile, '.yaml'),
-              'name' => $moduleName,
-              'permissions' => $this->parsePermissions($module['permissions']),
+                'key' => basename($definitionsFile, '.yaml'),
+                'name' => $moduleName,
+                'permissions' => $this->parsePermissions($module['permissions']),
             ];
         }
 
@@ -57,8 +55,8 @@ class ModuleHandler implements ModuleHandlerInterface
         foreach ($this->modules as $module) {
             foreach ($module['permissions'] as $permission) {
                 $permissions[] = [
-                  'key' => $permission['key'],
-                  'provider' => $module['name'],
+                    'key' => $permission['key'],
+                    'provider' => $module['name'],
                 ];
             }
         }
@@ -89,7 +87,11 @@ class ModuleHandler implements ModuleHandlerInterface
         $permissions = [];
         foreach ($this->modules as $module) {
             foreach ($module['permissions'] as $permission) {
-                $permissions[strtoupper($module['key']).'_'.str_replace(' ', '_', ucwords($permission['key']))] = $permission['key'];
+                $permissions[strtoupper($module['key']).'_'.str_replace(
+                    ' ',
+                    '_',
+                    ucwords($permission['key'])
+                )] = $permission['key'];
             }
         }
 
@@ -97,9 +99,7 @@ class ModuleHandler implements ModuleHandlerInterface
     }
 
     /**
-     * Transforms all permissions into ["permission1", "permission2"].
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function getPermissionsArray()
     {
@@ -113,6 +113,32 @@ class ModuleHandler implements ModuleHandlerInterface
         return $permissions;
     }
 
+    /**
+     * Transforms permissions from
+     * [
+     *  'permission_1' => [
+     *      'dependencies'  => 'say hello',
+     *      'name'          => 'Permission 1'
+     *  ],
+     * ...
+     * ].
+     *
+     * to
+     *
+     * [
+     *  [
+     *      'key'           => 'permission_1',
+     *      'dependencies'  => 'say hello',
+     *      'name'          => 'Permission 1'
+     *  ],
+     * ...
+     * ]
+     *
+     *
+     * @param array $permissions
+     *
+     * @return array
+     */
     private function parsePermissions(array $permissions)
     {
         $multiDimPermissions = [];

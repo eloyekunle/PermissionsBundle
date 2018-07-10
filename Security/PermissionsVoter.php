@@ -11,17 +11,29 @@
 
 namespace Eloyekunle\PermissionsBundle\Security;
 
+use Eloyekunle\PermissionsBundle\Model\RoleInterface;
+use Eloyekunle\PermissionsBundle\Model\UserInterface;
+use Eloyekunle\PermissionsBundle\Util\ModuleHandlerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class PermissionsVoter extends Voter
 {
+    /**
+     * @var AccessDecisionManagerInterface
+     */
     protected $decisionManager;
 
-    public function __construct(AccessDecisionManagerInterface $accessDecisionManager)
+    /**
+     * @var ModuleHandlerInterface
+     */
+    protected $moduleHandler;
+
+    public function __construct(AccessDecisionManagerInterface $accessDecisionManager, ModuleHandlerInterface $moduleHandler)
     {
         $this->decisionManager = $accessDecisionManager;
+        $this->moduleHandler = $moduleHandler;
     }
 
     /**
@@ -29,7 +41,12 @@ class PermissionsVoter extends Voter
      */
     protected function supports($attribute, $subject)
     {
-        // TODO: Implement supports() method.
+        // Check if attribute is declared as permission.
+        if (!in_array($attribute, [$this->moduleHandler->getPermissionsArray()])) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -37,6 +54,17 @@ class PermissionsVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
-        // TODO: Implement voteOnAttribute() method.
+        // Super Admin Pass
+        if ($this->decisionManager->decide($token, [RoleInterface::ROLE_SUPER_ADMIN])) {
+            return true;
+        }
+
+        // Deny access if user is not logged in.
+        $user = $token->getUser();
+        if (!$user instanceof UserInterface) {
+            return false;
+        }
+
+        return $user->hasPermission($attribute);
     }
 }
