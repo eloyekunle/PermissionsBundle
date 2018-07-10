@@ -9,9 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloyekunle\PermissionsBundle\Permission;
-
-use Eloyekunle\PermissionsBundle\Util\YamlDiscovery;
+namespace Eloyekunle\PermissionsBundle\Util;
 
 class ModuleHandler implements ModuleHandlerInterface
 {

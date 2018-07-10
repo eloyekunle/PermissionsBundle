@@ -11,7 +11,7 @@
 
 namespace Eloyekunle\PermissionsBundle\Controller;
 
-use Eloyekunle\PermissionsBundle\Permission\ModuleHandlerInterface;
+use Eloyekunle\PermissionsBundle\Util\ModuleHandlerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 

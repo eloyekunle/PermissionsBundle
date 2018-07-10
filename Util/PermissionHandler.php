@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloyekunle\PermissionsBundle\Permission;
+namespace Eloyekunle\PermissionsBundle\Util;
 
 /**
  * Provides the available permissions based on yml files.
