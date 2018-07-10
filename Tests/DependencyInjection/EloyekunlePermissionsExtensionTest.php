@@ -46,9 +46,14 @@ class EloyekunlePermissionsExtensionTest extends TestCase
         unset($this->container, $this->extension);
     }
 
+    /**
+     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     */
     public function testLoadThrowsExceptionUnlessDatabaseDriverSet()
     {
         $config = $this->getEmptyConfig();
+        unset($config['db_driver']);
+        $this->extension->load([$config], $this->container);
     }
 
     protected function createEmptyConfig()
@@ -74,7 +79,7 @@ class EloyekunlePermissionsExtensionTest extends TestCase
     {
         $yaml = <<<EOF
 db_driver: orm
-
+role_class: Acme\MyBundle\Document\Role
 EOF;
         $parser = new Parser();
 
