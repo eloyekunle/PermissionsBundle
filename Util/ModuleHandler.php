@@ -44,10 +44,9 @@ class ModuleHandler implements ModuleHandlerInterface
         return $modules;
     }
 
-    public function getModuleNames()
-    {
-    }
-
+    /**
+     * {@inheritdoc}
+     */
     public function getPermissions()
     {
         $permissions = [];
@@ -62,6 +61,19 @@ class ModuleHandler implements ModuleHandlerInterface
         }
 
         return $permissions;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getModuleNames()
+    {
+        $modules = [];
+        foreach ($this->getModuleList() as $moduleId => $module) {
+            $modules[$moduleId] = $module['name'];
+        }
+
+        return $modules;
     }
 
     /**

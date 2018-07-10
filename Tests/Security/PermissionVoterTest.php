@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloyekunle\PermissionsBundle\Tests\Util;
+namespace Eloyekunle\PermissionsBundle\Tests\Security;
 
 use PHPUnit\Framework\TestCase;
 
-class PermissionHandlerTest extends TestCase
+class PermissionVoterTest extends TestCase
 {
 }

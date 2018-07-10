@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" ?>
 
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="eloyekunle_permissions.permissions.controller" class="Eloyekunle\PermissionsBundle\Controller\PermissionsController" public="true">
-            <argument id="eloyekunle_permissions.module.handler" type="service" />
+        <service id="eloyekunle_permissions.security.permissions_voter" class="Eloyekunle\PermissionsBundle\Security\PermissionsVoter">
+            <argument id="security.access.decision_manager" type="service" />
+            <tag name="security.voter" />
         </service>
     </services>
 

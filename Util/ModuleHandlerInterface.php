@@ -20,7 +20,18 @@ interface ModuleHandlerInterface
      */
     public function getModuleList();
 
-    public function getModuleNames();
-
+    /**
+     * Gets all available permissions.
+     *
+     * @return array
+     */
     public function getPermissions();
+
+    /**
+     * Returns all module names.
+     *
+     * @return string[]
+     *                  Returns the human readable names of all modules keyed by machine name
+     */
+    public function getModuleNames();
 }
