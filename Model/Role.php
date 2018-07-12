@@ -11,7 +11,9 @@
 
 namespace Eloyekunle\PermissionsBundle\Model;
 
-abstract class Role implements RoleInterface
+use Symfony\Component\Security\Core\Role\Role as BaseRole;
+
+abstract class Role extends BaseRole implements RoleInterface
 {
     /**
      * The machine name of this role.
@@ -25,7 +27,7 @@ abstract class Role implements RoleInterface
      *
      * @var string
      */
-    protected $name;
+    protected $role;
 
     /**
      * The permissions belonging to this role.
@@ -34,8 +36,9 @@ abstract class Role implements RoleInterface
      */
     protected $permissions;
 
-    public function __construct()
+    public function __construct($role = '')
     {
+        parent::__construct($role);
         $this->permissions = [];
     }
 
@@ -47,20 +50,17 @@ abstract class Role implements RoleInterface
         return $this->id;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
+    public function getRole()
     {
-        return $this->name;
+        return $this->role;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setName($name)
+    public function setRole($role)
     {
-        $this->name = $name;
+        $this->role = $role;
 
         return $this;
     }
@@ -139,7 +139,7 @@ abstract class Role implements RoleInterface
      */
     public function isSuperAdmin()
     {
-        return $this->getName() === static::ROLE_SUPER_ADMIN;
+        return $this->getRole() === static::ROLE_SUPER_ADMIN;
     }
 
     public function prePersist()

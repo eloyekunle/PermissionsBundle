@@ -20,10 +20,10 @@ class RoleTest extends TestCase
     public function testName()
     {
         $role = $this->getRole();
-        $this->assertNull($role->getName());
+        $this->assertNull($role->getRole());
 
-        $role->setName('System Administrator');
-        $this->assertSame('System Administrator', $role->getName());
+        $role->setRole('System Administrator');
+        $this->assertSame('System Administrator', $role->getRole());
     }
 
     public function testGrantPermission()
@@ -50,10 +50,10 @@ class RoleTest extends TestCase
         $role = $this->getRole();
         $this->assertFalse($role->hasPermission('Administer Systems'));
 
-        $role->setName(RoleInterface::ROLE_SUPER_ADMIN);
+        $role->setRole(RoleInterface::ROLE_SUPER_ADMIN);
         $this->assertTrue($role->hasPermission('Administer Systems'));
 
-        $role->setName('Not Admin');
+        $role->setRole('Not Admin');
         $this->assertFalse($role->hasPermission('Administer Systems'));
     }
 

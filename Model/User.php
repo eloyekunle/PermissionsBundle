@@ -127,7 +127,7 @@ abstract class User implements UserInterface
         $roles = $this->getUserRoles();
 
         foreach ($roles as $role) {
-            $roleNames[] = $role->getName();
+            $roleNames[] = $role->getRole();
         }
 
         return array_unique($roleNames);

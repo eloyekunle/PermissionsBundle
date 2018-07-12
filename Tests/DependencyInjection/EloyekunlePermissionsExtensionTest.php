@@ -70,7 +70,7 @@ class EloyekunlePermissionsExtensionTest extends TestCase
     {
         $this->createEmptyConfig();
 
-        $this->assertParameter('mongodb', 'eloyekunle_permissions.storage');
+        $this->assertParameter('orm', 'eloyekunle_permissions.storage');
         $this->assertAlias('eloyekunle_permissions.role_manager.default', 'eloyekunle_permissions.role_manager');
     }
 

@@ -31,12 +31,12 @@ interface RoleInterface
     /**
      * @return null|string
      */
-    public function getName();
+    public function getRole();
 
     /**
      * @param null|string $name
      */
-    public function setName($name);
+    public function setRole($name);
 
     /**
      * Returns a list of permissions assigned to the role.

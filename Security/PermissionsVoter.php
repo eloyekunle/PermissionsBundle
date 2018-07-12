@@ -30,10 +30,10 @@ class PermissionsVoter extends Voter
      */
     protected $moduleHandler;
 
-    public function __construct(AccessDecisionManagerInterface $accessDecisionManager, PermissionsHandlerInterface $moduleHandler)
+    public function __construct(AccessDecisionManagerInterface $accessDecisionManager, PermissionsHandlerInterface $permissionsHandler)
     {
         $this->decisionManager = $accessDecisionManager;
-        $this->moduleHandler = $moduleHandler;
+        $this->moduleHandler = $permissionsHandler;
     }
 
     /**
@@ -42,7 +42,7 @@ class PermissionsVoter extends Voter
     protected function supports($attribute, $subject)
     {
         // Check if attribute is declared as permission.
-        if (!in_array($attribute, [$this->moduleHandler->getPermissionsArray()])) {
+        if (!in_array($attribute, array_keys($this->moduleHandler->getPermissions()))) {
             return false;
         }
 

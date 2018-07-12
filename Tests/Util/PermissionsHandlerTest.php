@@ -29,6 +29,11 @@ class PermissionsHandlerTest extends TestCase
     {
         $permissions = $this->permissionsHandler->getPermissions();
         $this->assertArrayHasKey('edit users', $permissions);
+        $this->assertSame('full_definition', $permissions['edit users']['provider']);
+        $this->assertSame('Edit Users', $permissions['edit users']['title']);
+
         $this->assertArrayHasKey('delete users', $permissions);
+        $this->assertSame('no_name', $permissions['delete users']['provider']);
+        $this->assertSame('Delete Users', $permissions['delete users']['title']);
     }
 }
