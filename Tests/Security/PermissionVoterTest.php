@@ -77,6 +77,26 @@ class PermissionVoterTest extends TestCase
         $token = $this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\TokenInterface')->getMock();
 
         $this->assertSame($expectedVote, $voter->vote($token, $subject, $attributes), $message);
+
+        if (VoterInterface::ACCESS_ABSTAIN !== $expectedVote) {
+            $role = $this->createMockRole();
+            foreach ($attributes as $attribute) {
+                $role->grantPermission($attribute);
+            }
+            $user = $this->createMockUser();
+            $user->addRole($role);
+            $token->expects($this->atLeastOnce())
+                ->method('getUser')
+                ->willReturn($user);
+
+            $this->assertSame(VoterInterface::ACCESS_GRANTED, $voter->vote($token, $subject, $attributes));
+
+            foreach ($attributes as $attribute) {
+                $role->revokePermission($attribute);
+            }
+
+            $this->assertSame(VoterInterface::ACCESS_DENIED, $voter->vote($token, $subject, $attributes));
+        }
     }
 
     /**
