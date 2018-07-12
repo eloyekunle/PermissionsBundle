@@ -11,8 +11,45 @@
 
 namespace Eloyekunle\PermissionsBundle\Tests\Model;
 
+use Eloyekunle\PermissionsBundle\Doctrine\RoleManager;
+use Eloyekunle\PermissionsBundle\Model\RoleManagerInterface;
 use PHPUnit\Framework\TestCase;
 
 class RoleManagerTest extends TestCase
 {
+    const ROLE_CLASS = 'Eloyekunle\PermissionsBundle\Tests\TestUser';
+
+    /** @var \PHPUnit_Framework_MockObject_MockObject */
+    protected $repository;
+
+    /** @var \PHPUnit_Framework_MockObject_MockObject */
+    protected $om;
+
+    /** @var RoleManagerInterface */
+    protected $roleManager;
+
+    public function setUp()
+    {
+        if (!interface_exists('Doctrine\Common\Persistence\ObjectManager')) {
+            $this->markTestSkipped('Doctrine Common has to be installed for this test to run.');
+        }
+
+        $class = $this->getMockBuilder('Doctrine\Common\Persistence\Mapping\ClassMetadata')->getMock();
+        $this->om = $this->getMockBuilder('Doctrine\Common\Persistence\ObjectManager')->getMock();
+        $this->repository = $this->getMockBuilder('Doctrine\Common\Persistence\ObjectRepository')->getMock();
+
+        $this->om->expects($this->any())
+            ->method('getRepository')
+            ->with($this->equalTo(static::ROLE_CLASS))
+            ->will($this->returnValue($this->repository));
+        $this->om->expects($this->any())
+            ->method('getClassMetadata')
+            ->with($this->equalTo(static::ROLE_CLASS))
+            ->will($this->returnValue($class));
+        $class->expects($this->any())
+            ->method('getName')
+            ->will($this->returnValue(static::ROLE_CLASS));
+
+        $this->roleManager = new RoleManager($this->om, $class);
+    }
 }
