@@ -38,6 +38,7 @@ class Configuration implements ConfigurationInterface
                     ->cannotBeOverwritten()
                     ->isRequired()
                     ->cannotBeEmpty()
+                    ->defaultValue('orm')
                 ->end()
                 ->scalarNode('role_class')->isRequired()->cannotBeEmpty()->end()
             ->end();
