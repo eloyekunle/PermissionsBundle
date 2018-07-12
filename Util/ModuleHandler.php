@@ -11,6 +11,9 @@
 
 namespace Eloyekunle\PermissionsBundle\Util;
 
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Yaml\Parser;
+
 class ModuleHandler implements ModuleHandlerInterface
 {
     /** @var string */
@@ -19,10 +22,18 @@ class ModuleHandler implements ModuleHandlerInterface
     /** @var array */
     protected $modules;
 
+    /** @var Finder */
+    protected $finder;
+
+    /** @var Parser */
+    protected $parser;
+
     public function __construct($definitionsPath)
     {
         $this->definitionsPath = $definitionsPath;
         $this->modules = $this->getModuleList();
+        $this->finder = Finder::create()->files()->name('*.yaml')->in($this->definitionsPath);
+        $this->parser = new Parser();
     }
 
     /**
@@ -31,10 +42,10 @@ class ModuleHandler implements ModuleHandlerInterface
     public function getModuleList()
     {
         $modules = [];
-        $definitionsFiles = YamlDiscovery::getFilesInPath($this->definitionsPath);
+        $definitionsFiles = $this->finder->getIterator();
 
         foreach ($definitionsFiles as $definitionsFile) {
-            $module = YamlDiscovery::decode($definitionsFile);
+            $module = $this->parser->parseFile($definitionsFile);
             $moduleName = $module['name'];
             $modules[] = [
                 'key' => basename($definitionsFile, '.yaml'),

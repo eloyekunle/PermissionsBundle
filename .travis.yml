@@ -1,40 +1,47 @@
 language: php
 
-php:
-  - 5.5
-  - 5.6
-  - 7.1
-  - 7.2
-
-env:
-  global:
-    - TARGET=test
-
-matrix:
-  fast_finish: true
-  include:
-    - php: 7.0
-      env: TARGET=cs_dry_run
-    - php: 5.5
-      env: COMPOSER_FLAGS="--prefer-lowest"
-    - php: 5.6
-      env: DEPENDENCIES="symfony/lts:^2"
-    - php: 7.1
-      env: DEPENDENCIES="symfony/lts:^3"
-
 sudo: false
 
 cache:
   directories:
-    - $HOME/.composer/cache
+    - .phpunit
+    - $HOME/.composer/cache/files
+
+branches:
+  only:
+    - master
+    - /^\d+\.\d+$/
+
+matrix:
+  fast_finish: true
+  include:
+    - php: 5.5
+      env: COMPOSER_FLAGS="--prefer-lowest" SYMFONY_DEPRECATIONS_HELPER=weak
+    - php: 5.6
+    # Symfony 2 LTS
+    - php: 7.0
+      env: SYMFONY_LTS='^2'
+    # Symfony 3 LTS
+    - php: 7.0
+      env: SYMFONY_LTS='^3'
+    # Symfony 4
+    - php: 7.1
+    - php: 7.2
+    # development dependencies
+    - php: 7.2
+      env: DEPENDENCIES='dev'
+  allow_failures:
+    - php: 7.2
+      env: DEPENDENCIES='dev'
 
 before_install:
-  # To be removed when this issue will be resolved: https://github.com/composer/composer/issues/5355
-  - if [[ "$COMPOSER_FLAGS" == *"--prefer-lowest"* ]]; then composer update --prefer-dist --no-interaction --prefer-stable --quiet; fi
-  - if [ "$DEPENDENCIES" != "" ]; then composer require --no-update $DEPENDENCIES; fi;
-  - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - echo "memory_limit=4G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then phpenv config-rm xdebug.ini; fi
+  - if [ "$DEPENDENCIES" != "" ]; then composer config minimum-stability $DEPENDENCIES; fi
+  - if [ "$SYMFONY_LTS" != "" ]; then composer require --dev --no-update symfony/lts=$SYMFONY_LTS; fi
 
-install: composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
+install:
+  - composer update $COMPOSER_FLAGS --prefer-dist
+  - ./phpunit install
 
-script:
- - make $TARGET
+script: ./phpunit
