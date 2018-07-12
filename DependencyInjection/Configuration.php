@@ -25,7 +25,7 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('eloyekunle_permissions');
 
-        $supportedDrivers = array('orm', 'mongodb', 'couchdb', 'custom');
+        $supportedDrivers = array('orm');
 
         $rootNode
             ->addDefaultsIfNotSet()

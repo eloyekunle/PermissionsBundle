@@ -26,17 +26,8 @@ class EloyekunlePermissionsExtension extends Extension
      */
     private static $doctrineDrivers = array(
         'orm' => array(
-        'registry' => 'doctrine',
-        'tag' => 'doctrine.event_subscriber',
-        ),
-        'mongodb' => array(
-        'registry' => 'doctrine_mongodb',
-        'tag' => 'doctrine_mongodb.odm.event_subscriber',
-        ),
-        'couchdb' => array(
-        'registry' => 'doctrine_couchdb',
-        'tag' => 'doctrine_couchdb.event_subscriber',
-        'listener_class' => 'Eloyekunle\PermissionsBundle\Doctrine\CouchDB\UserListener',
+            'registry' => 'doctrine',
+            'tag' => 'doctrine.event_subscriber',
         ),
     );
 
@@ -55,30 +46,30 @@ class EloyekunlePermissionsExtension extends Extension
             new FileLocator(__DIR__.'/../Resources/config')
         );
 
-        if ('custom' !== $config['db_driver']) {
-            if (isset(self::$doctrineDrivers[$config['db_driver']])) {
-                $loader->load('doctrine.xml');
-                $container->setAlias('eloyekunle_permissions.doctrine_registry', new Alias(self::$doctrineDrivers[$config['db_driver']]['registry'], false));
-            } else {
-                $loader->load(sprintf('%s.xml', $config['db_driver']));
-            }
-            $container->setParameter($this->getAlias().'.backend_type_'.$config['db_driver'], true);
-        }
+        $loader->load('doctrine.xml');
+        $container->setAlias(
+            'eloyekunle_permissions.doctrine_registry',
+            new Alias(self::$doctrineDrivers[$config['db_driver']]['registry'], false)
+        );
+        $container->setParameter($this->getAlias().'.backend_type_'.$config['db_driver'], true);
 
         if (isset(self::$doctrineDrivers[$config['db_driver']])) {
             $definition = $container->getDefinition('eloyekunle_permissions.object_manager');
             $definition->setFactory([new Reference('eloyekunle_permissions.doctrine_registry'), 'getManager']);
         }
 
-        $this->remapParametersNamespaces($config, $container, array(
-            '' => array(
-            'db_driver' => 'eloyekunle_permissions.storage',
-            'role_class' => 'eloyekunle_permissions.model.role.class',
-            ),
-        ));
+        $this->remapParametersNamespaces(
+            $config,
+            $container,
+            array(
+                '' => array(
+                    'db_driver' => 'eloyekunle_permissions.storage',
+                    'role_class' => 'eloyekunle_permissions.model.role.class',
+                ),
+            )
+        );
 
         $this->loadRole($config, $container, $loader);
-        $this->loadPermission($config, $container, $loader);
 
         if (!empty($config['module'])) {
             $this->loadModule($config['module'], $container, $loader);
@@ -130,22 +121,24 @@ class EloyekunlePermissionsExtension extends Extension
         $loader->load('role.xml');
         $loader->load('doctrine_role.xml');
 
-        $container->setAlias('eloyekunle_permissions.role_manager', new Alias('eloyekunle_permissions.role_manager.default', true));
-    }
-
-    private function loadPermission(array $config, ContainerBuilder $container, XmlFileLoader $loader)
-    {
-        $loader->load('permissions.xml');
+        $container->setAlias(
+            'eloyekunle_permissions.role_manager',
+            new Alias('eloyekunle_permissions.role_manager.default', true)
+        );
     }
 
     private function loadModule(array $config, ContainerBuilder $container, XmlFileLoader $loader)
     {
         $loader->load('module.xml');
 
-        $this->remapParametersNamespaces($config, $container, [
-            '' => [
-            'definitions_path' => 'eloyekunle_permissions.module.definitions_path',
-            ],
-        ]);
+        $this->remapParametersNamespaces(
+            $config,
+            $container,
+            [
+                '' => [
+                    'definitions_path' => 'eloyekunle_permissions.module.definitions_path',
+                ],
+            ]
+        );
     }
 }
