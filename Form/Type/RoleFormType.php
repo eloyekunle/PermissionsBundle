@@ -33,14 +33,14 @@ class RoleFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-          ->add('name', TextType::class)
+            ->add('name', TextType::class)
         ->add(
             'permissions',
             CollectionType::class,
             [
-              'entry_type' => TextType::class,
-              'allow_add' => true,
-              ]
+                'entry_type' => TextType::class,
+                'allow_add' => true,
+                ]
         );
     }
 

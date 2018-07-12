@@ -28,19 +28,19 @@ class Configuration implements ConfigurationInterface
         $supportedDrivers = array('orm', 'mongodb', 'couchdb', 'custom');
 
         $rootNode
-          ->addDefaultsIfNotSet()
-          ->children()
-              ->scalarNode('db_driver')
-                  ->validate()
-                      ->ifNotInArray($supportedDrivers)
-                      ->thenInvalid('The driver %s is not supported. Please choose one of '.json_encode($supportedDrivers))
-                  ->end()
-                  ->cannotBeOverwritten()
-                  ->isRequired()
-                  ->cannotBeEmpty()
-              ->end()
-              ->scalarNode('role_class')->isRequired()->cannotBeEmpty()->end()
-          ->end();
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->scalarNode('db_driver')
+                    ->validate()
+                        ->ifNotInArray($supportedDrivers)
+                        ->thenInvalid('The driver %s is not supported. Please choose one of '.json_encode($supportedDrivers))
+                    ->end()
+                    ->cannotBeOverwritten()
+                    ->isRequired()
+                    ->cannotBeEmpty()
+                ->end()
+                ->scalarNode('role_class')->isRequired()->cannotBeEmpty()->end()
+            ->end();
 
         $this->addModuleSection($rootNode);
 
@@ -50,12 +50,12 @@ class Configuration implements ConfigurationInterface
     private function addModuleSection(ArrayNodeDefinition $node)
     {
         $node
-          ->children()
+            ->children()
             ->arrayNode('module')
             ->addDefaultsIfNotSet()
             ->canBeUnset()
             ->children()
-              ->scalarNode('definitions_path')->defaultNull()->isRequired()
+                ->scalarNode('definitions_path')->defaultNull()->isRequired()
             ->end();
     }
 }
