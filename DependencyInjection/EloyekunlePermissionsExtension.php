@@ -25,19 +25,19 @@ class EloyekunlePermissionsExtension extends Extension
      * @var array
      */
     private static $doctrineDrivers = array(
-      'orm' => array(
+        'orm' => array(
         'registry' => 'doctrine',
         'tag' => 'doctrine.event_subscriber',
-      ),
-      'mongodb' => array(
+        ),
+        'mongodb' => array(
         'registry' => 'doctrine_mongodb',
         'tag' => 'doctrine_mongodb.odm.event_subscriber',
-      ),
-      'couchdb' => array(
+        ),
+        'couchdb' => array(
         'registry' => 'doctrine_couchdb',
         'tag' => 'doctrine_couchdb.event_subscriber',
         'listener_class' => 'Eloyekunle\PermissionsBundle\Doctrine\CouchDB\UserListener',
-      ),
+        ),
     );
 
     /**
