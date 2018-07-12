@@ -23,4 +23,24 @@ abstract class RoleManager implements RoleManagerInterface
 
         return $role;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isPermissionInRoles($permission, array $roles)
+    {
+        $hasPermission = false;
+
+        foreach ($roles as $roleName) {
+            /** @var \Eloyekunle\PermissionsBundle\Model\Role $role */
+            $role = $this->findRoleBy(['name' => $roleName]);
+
+            if ($role->isSuperAdmin() || $role->hasPermission($permission)) {
+                $hasPermission = true;
+                break;
+            }
+        }
+
+        return $hasPermission;
+    }
 }

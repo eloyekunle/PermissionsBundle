@@ -24,36 +24,10 @@ class RoleManager extends BaseRoleManager
     /** @var string */
     protected $class;
 
-    /** @var ObjectRepository */
-    protected $repository;
-
     public function __construct(ObjectManager $om, $class)
     {
         $this->objectManager = $om;
-        $this->repository = $om->getRepository($class);
-
-        $metadata = $om->getClassMetadata($class);
-        $this->class = $metadata->getName();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isPermissionInRoles($permission, array $roles)
-    {
-        $hasPermission = false;
-
-        foreach ($roles as $roleName) {
-            /** @var \Eloyekunle\PermissionsBundle\Model\Role $role */
-            $role = $this->repository->findOneBy(['name' => $roleName]);
-
-            if ($role->isSuperAdmin() || $role->hasPermission($permission)) {
-                $hasPermission = true;
-                break;
-            }
-        }
-
-        return $hasPermission;
+        $this->class = $class;
     }
 
     /**
@@ -74,7 +48,7 @@ class RoleManager extends BaseRoleManager
      */
     public function findRoles()
     {
-        return $this->repository->findAll();
+        return $this->getRepository()->findAll();
     }
 
     /**
@@ -82,7 +56,7 @@ class RoleManager extends BaseRoleManager
      */
     public function findRoleBy(array $criteria)
     {
-        return $this->repository->findOneBy($criteria);
+        return $this->getRepository()->findOneBy($criteria);
     }
 
     /**
@@ -90,7 +64,7 @@ class RoleManager extends BaseRoleManager
      */
     public function findRole($id)
     {
-        return $this->repository->find($id);
+        return $this->getRepository()->find($id);
     }
 
     /**
@@ -112,5 +86,13 @@ class RoleManager extends BaseRoleManager
     {
         $this->objectManager->remove($role);
         $this->objectManager->flush();
+    }
+
+    /**
+     * @return ObjectRepository
+     */
+    protected function getRepository()
+    {
+        return $this->objectManager->getRepository($this->getClass());
     }
 }
