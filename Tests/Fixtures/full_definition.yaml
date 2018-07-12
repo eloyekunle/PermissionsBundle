@@ -1,0 +1,5 @@
+title: Users
+
+permissions:
+  'edit users':
+    title: 'Edit Users'

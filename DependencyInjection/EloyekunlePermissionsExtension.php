@@ -72,7 +72,7 @@ class EloyekunlePermissionsExtension extends Extension
         $this->loadRole($config, $container, $loader);
 
         if (!empty($config['module'])) {
-            $this->loadModule($config['module'], $container, $loader);
+            $this->loadPermissions($config['module'], $container, $loader);
         }
     }
 
@@ -127,9 +127,9 @@ class EloyekunlePermissionsExtension extends Extension
         );
     }
 
-    private function loadModule(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    private function loadPermissions(array $config, ContainerBuilder $container, XmlFileLoader $loader)
     {
-        $loader->load('module.xml');
+        $loader->load('permissions.xml');
 
         $this->remapParametersNamespaces(
             $config,

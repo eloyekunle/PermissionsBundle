@@ -103,7 +103,7 @@ class EloyekunlePermissionsExtensionTest extends TestCase
     protected function getEmptyConfig()
     {
         $yaml = <<<EOF
-db_driver: mongodb
+db_driver: orm
 role_class: Acme\MyBundle\Document\Role
 EOF;
         $parser = new Parser();

@@ -13,7 +13,7 @@ namespace Eloyekunle\PermissionsBundle\Security;
 
 use Eloyekunle\PermissionsBundle\Model\RoleInterface;
 use Eloyekunle\PermissionsBundle\Model\UserInterface;
-use Eloyekunle\PermissionsBundle\Util\ModuleHandlerInterface;
+use Eloyekunle\PermissionsBundle\Util\PermissionsHandlerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -26,11 +26,11 @@ class PermissionsVoter extends Voter
     protected $decisionManager;
 
     /**
-     * @var ModuleHandlerInterface
+     * @var PermissionsHandlerInterface
      */
     protected $moduleHandler;
 
-    public function __construct(AccessDecisionManagerInterface $accessDecisionManager, ModuleHandlerInterface $moduleHandler)
+    public function __construct(AccessDecisionManagerInterface $accessDecisionManager, PermissionsHandlerInterface $moduleHandler)
     {
         $this->decisionManager = $accessDecisionManager;
         $this->moduleHandler = $moduleHandler;

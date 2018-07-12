@@ -9,10 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Eloyekunle\PermissionsBundle\Tests\Util;
+namespace Eloyekunle\PermissionsBundle\Util;
 
-use PHPUnit\Framework\TestCase;
-
-class ModuleHandlerTest extends TestCase
+interface PermissionsHandlerInterface
 {
+    /**
+     * Gets all available permissions.
+     *
+     * @return array
+     */
+    public function getPermissions();
 }

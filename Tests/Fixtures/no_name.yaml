@@ -1,0 +1,3 @@
+permissions:
+  'delete users':
+    title: 'Delete Users'

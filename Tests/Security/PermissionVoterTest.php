@@ -58,7 +58,7 @@ class PermissionVoterTest extends TestCase
 
         $this->assertSame($expectedVote, $voter->vote($this->token, $subject, $attributes), $message);
 
-        $this->token->setUser();
+//        $this->token->setUser();
     }
 
     protected function getModules()
@@ -82,7 +82,7 @@ EOF;
         $accessDecisionManager = $this->getMockBuilder(
             'Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface'
         )->getMock();
-        $moduleHandler = $this->getMockBuilder('Eloyekunle\PermissionsBundle\Util\ModuleHandlerInterface')->getMock();
+        $moduleHandler = $this->getMockBuilder('Eloyekunle\PermissionsBundle\Util\PermissionsHandlerInterface')->getMock();
 
         return new PermissionsVoter($accessDecisionManager, $moduleHandler);
     }
