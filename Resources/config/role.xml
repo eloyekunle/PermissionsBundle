@@ -5,10 +5,6 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="eloyekunle_permissions.role.controller" class="Eloyekunle\PermissionsBundle\Controller\RoleController" public="true">
-            <argument id="eloyekunle_permissions.role_manager" type="service" />
-        </service>
-
         <service id="eloyekunle_permissions.role.form.type" class="Eloyekunle\PermissionsBundle\Form\Type\RoleFormType">
             <argument>%eloyekunle_permissions.model.role.class%</argument>
             <tag name="form.type" alias="eloyekunle_permissions_role" />
