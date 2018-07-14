@@ -73,6 +73,14 @@ class RoleManagerTest extends TestCase
         $this->roleManager->findRoleBy($crit);
     }
 
+    public function testFindRole()
+    {
+        $id = 10;
+        $this->repository->expects($this->once())->method('find')->with($id);
+
+        $this->roleManager->findRole($id);
+    }
+
     public function testUpdateRole()
     {
         $role = $this->getRole();
