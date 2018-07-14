@@ -58,6 +58,13 @@ class RoleManagerTest extends TestCase
         $this->assertSame(static::ROLE_CLASS, $this->roleManager->getClass());
     }
 
+    public function testFindRoles()
+    {
+        $this->repository->expects($this->once())->method('findAll');
+
+        $this->roleManager->findRoles();
+    }
+
     public function testUpdateRole()
     {
         $role = $this->getRole();
