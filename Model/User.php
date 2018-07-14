@@ -65,7 +65,7 @@ abstract class User implements UserInterface
             return;
         }
 
-        $this->userRoles->remove($role);
+        $this->userRoles->removeElement($role);
     }
 
     /**

@@ -26,6 +26,10 @@ class UserTest extends TestCase
         $user->addRole($newrole);
         $this->assertTrue($user->hasRole($newrole));
 
+        // Role already exists (added above), so addRole should return without doing anything
+        $user->addRole($newrole);
+        $this->assertTrue($user->hasRole($newrole));
+
         $user->removeRole($newrole);
         $this->assertFalse($user->hasRole($newrole));
     }
