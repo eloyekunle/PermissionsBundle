@@ -1,0 +1,62 @@
+<?php
+
+/*
+ * This file is part of the EloyekunlePermissionsBundle package.
+ *
+ * (c) Elijah Oyekunle <https://elijahoyekunle.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Eloyekunle\PermissionsBundle\Tests\Model;
+
+use Eloyekunle\PermissionsBundle\Model\RoleInterface;
+use Eloyekunle\PermissionsBundle\Model\UserInterface;
+use Eloyekunle\PermissionsBundle\Tests\TestRole;
+use PHPUnit\Framework\TestCase;
+
+class UserTest extends TestCase
+{
+    public function testTrueHasRole()
+    {
+        $user = $this->getUser();
+        $newrole = $this->createMockRole('ROLE_X');
+
+        $user->addRole($newrole);
+        $this->assertTrue($user->hasRole($newrole));
+
+        $user->removeRole($newrole);
+        $this->assertFalse($user->hasRole($newrole));
+    }
+
+    public function testFalseHasRole()
+    {
+        $user = $this->getUser();
+        $newrole = $this->createMockRole('ROLE_X');
+
+        $this->assertFalse($user->hasRole($newrole));
+        $user->addRole($newrole);
+        $this->assertTrue($user->hasRole($newrole));
+    }
+
+    /**
+     * @param $roleName
+     *
+     * @return RoleInterface
+     */
+    protected function createMockRole($roleName)
+    {
+        return new TestRole($roleName);
+    }
+
+    /**
+     * @return UserInterface
+     *
+     * @throws \ReflectionException
+     */
+    protected function getUser()
+    {
+        return $this->getMockForAbstractClass('Eloyekunle\PermissionsBundle\Model\User');
+    }
+}

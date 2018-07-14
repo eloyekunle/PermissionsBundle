@@ -11,3 +11,4 @@ EloyekunlePermissionsBundle
 TODO
 -
 [x] Save permissions and roles in Symfony cache
+[x] Persist DEFAULT_ROLE on Initial Migration

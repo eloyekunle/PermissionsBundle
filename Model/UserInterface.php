@@ -40,7 +40,7 @@ interface UserInterface
      * @return bool
      *              Returns TRUE if the user has the role, otherwise FALSE
      */
-    public function hasRole($role);
+    public function hasRole(RoleInterface $role);
 
     /**
      * Sets the roles of the user.

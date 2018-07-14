@@ -43,9 +43,9 @@ abstract class User implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function hasRole($role)
+    public function hasRole(RoleInterface $role)
     {
-        return in_array(strtoupper($role), $this->getRoles(), true);
+        return $this->userRoles->contains($role);
     }
 
     /**
@@ -116,9 +116,7 @@ abstract class User implements UserInterface
      */
     public function getUserRoles()
     {
-        $roles = $this->userRoles;
-
-        return $roles;
+        return $this->userRoles;
     }
 
     private function getRoleNames()
