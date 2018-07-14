@@ -12,3 +12,5 @@ TODO
 -
 [x] Save permissions and roles in Symfony cache
 [x] Persist DEFAULT_ROLE on Initial Migration
+[x] Add Events to major Actions
+[x] Explore Use of expressions in Permissions Definitions
