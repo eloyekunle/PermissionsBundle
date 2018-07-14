@@ -65,6 +65,14 @@ class RoleManagerTest extends TestCase
         $this->roleManager->findRoles();
     }
 
+    public function testFindRoleBy()
+    {
+        $crit = ['name' => 'finestRole'];
+        $this->repository->expects($this->once())->method('findOneBy')->with($crit);
+
+        $this->roleManager->findRoleBy($crit);
+    }
+
     public function testUpdateRole()
     {
         $role = $this->getRole();
