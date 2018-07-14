@@ -34,7 +34,7 @@ abstract class Role implements RoleInterface
      */
     protected $permissions;
 
-    public function __construct($role = '')
+    public function __construct($role = null)
     {
         $this->role = $role;
         $this->permissions = [];

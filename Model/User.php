@@ -85,13 +85,7 @@ abstract class User implements UserInterface
      */
     public function setUserRoles(array $userRoles)
     {
-        $this->userRoles = [];
-
-        foreach ($userRoles as $role) {
-            $this->addRole($role);
-        }
-
-        return $this;
+        $this->userRoles = new ArrayCollection($userRoles);
     }
 
     /**

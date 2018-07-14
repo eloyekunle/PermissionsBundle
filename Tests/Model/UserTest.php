@@ -63,6 +63,23 @@ class UserTest extends TestCase
         $this->assertTrue($user->hasPermission($permission));
     }
 
+    public function testSetUserRoles()
+    {
+        $roleNames = ['Content Admin', 'Service Admin'];
+        $roles = [];
+        foreach ($roleNames as $roleName) {
+            $roles[] = $this->createMockRole($roleName);
+        }
+        $user1 = $this->getUser();
+        $user2 = $this->getUser();
+        $user2->setUserRoles($roles);
+
+        foreach ($roles as $role) {
+            $this->assertFalse($user1->hasRole($role));
+            $this->assertTrue($user2->hasRole($role));
+        }
+    }
+
     /**
      * @param $roleName
      *
