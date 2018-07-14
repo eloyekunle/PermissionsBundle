@@ -32,6 +32,10 @@ class UserTest extends TestCase
 
         $user->removeRole($newrole);
         $this->assertFalse($user->hasRole($newrole));
+
+        // Role already removed (removed above), so removeRole should return without doing anything
+        $user->removeRole($newrole);
+        $this->assertFalse($user->hasRole($newrole));
     }
 
     public function testFalseHasRole()
