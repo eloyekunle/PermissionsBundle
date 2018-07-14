@@ -35,11 +35,6 @@ class RoleManager extends BaseRoleManager
      */
     public function getClass()
     {
-        if (false !== strpos($this->class, ':')) {
-            $metadata = $this->objectManager->getClassMetadata($this->class);
-            $this->class = $metadata->getName();
-        }
-
         return $this->class;
     }
 

@@ -58,6 +58,15 @@ class RoleManagerTest extends TestCase
         $this->assertSame(static::ROLE_CLASS, $this->roleManager->getClass());
     }
 
+    public function testUpdateRole()
+    {
+        $role = $this->getRole();
+        $this->om->expects($this->once())->method('persist')->with($role);
+        $this->om->expects($this->once())->method('flush');
+
+        $this->roleManager->updateRole($role);
+    }
+
     public function testDeleteRole()
     {
         $role = $this->getRole();
@@ -71,6 +80,6 @@ class RoleManagerTest extends TestCase
     {
         $roleClass = static::ROLE_CLASS;
 
-        return new $roleClass;
+        return new $roleClass();
     }
 }
