@@ -48,6 +48,21 @@ class UserTest extends TestCase
         $this->assertTrue($user->hasRole($newrole));
     }
 
+    public function testIsSuperAdmin()
+    {
+        $user = $this->getUser();
+        $permission = 'do stuff';
+
+        $this->assertFalse($user->isSuperAdmin());
+        $this->assertFalse($user->hasPermission($permission));
+
+        $superAdminRole = $this->createMockRole(RoleInterface::ROLE_SUPER_ADMIN);
+        $user->addRole($superAdminRole);
+
+        $this->assertTrue($user->isSuperAdmin());
+        $this->assertTrue($user->hasPermission($permission));
+    }
+
     /**
      * @param $roleName
      *

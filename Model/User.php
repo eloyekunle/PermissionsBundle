@@ -53,7 +53,7 @@ abstract class User implements UserInterface
      */
     public function isSuperAdmin()
     {
-        return $this->hasRole(Role::ROLE_SUPER_ADMIN);
+        return in_array(RoleInterface::ROLE_SUPER_ADMIN, $this->getRoles());
     }
 
     /**

@@ -11,9 +11,7 @@
 
 namespace Eloyekunle\PermissionsBundle\Model;
 
-use Symfony\Component\Security\Core\Role\Role as BaseRole;
-
-abstract class Role extends BaseRole implements RoleInterface
+abstract class Role implements RoleInterface
 {
     /**
      * The machine name of this role.
@@ -38,7 +36,7 @@ abstract class Role extends BaseRole implements RoleInterface
 
     public function __construct($role = '')
     {
-        parent::__construct($role);
+        $this->role = $role;
         $this->permissions = [];
     }
 
