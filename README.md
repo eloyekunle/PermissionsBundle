@@ -21,7 +21,6 @@ Features include:
 - Unit tested.
 
 ## INSTALLATION
----------------
 Installation is a quick (I promise!) 5 step process:
 
 1. Download EloyekunlePermissionsBundle using composer
@@ -70,7 +69,6 @@ to make it easier to create your entity. Here is how you use it:
 2. Map the ``id`` field. It must be protected as it is inherited from the parent class.
 
 __Caution__
-
     When you extend from the mapped superclass provided by the bundle, don't
     redefine the mapping for the other fields as it is provided by the bundle.
 
@@ -79,13 +77,11 @@ look, depending on how you're storing your roles (Doctrine ORM, MongoDB ODM,
 or CouchDB ODM).
 
 __Note__
-
     The doc uses a bundle named ``AppBundle`` according to the Symfony best
     practices. However, you can of course place your role class in the bundle
     you want.
 
 __Caution__
-
     If you override the __construct() method in your Role class, be sure
     to call parent::__construct(), as the base Role class depends on
     this to initialize some fields.
@@ -154,16 +150,12 @@ AppBundle\Entity\User:
 </doctrine-mapping>
 ```
 
-
-``user`` is a reserved keyword in the SQL standard. If you need to use reserved words, surround them with backticks, *e.g.* ``@ORM\Table(name="`user`")``
-
 ### Step 4: Configure the EloyekunlePermissionsBundle
 
 ### Step 5: Update your database schema
 
 
 ## USAGE
---------
 
 
 TODO
