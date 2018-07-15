@@ -41,6 +41,7 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue('orm')
                 ->end()
                 ->scalarNode('role_class')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('model_manager_name')->defaultNull()->end()
             ->end();
 
         $this->addModuleSection($rootNode);

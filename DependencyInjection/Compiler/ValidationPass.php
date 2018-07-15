@@ -38,9 +38,6 @@ class ValidationPass implements CompilerPassInterface
         $validationFile = $configDir.'/storage-validation/'.$storage.'.xml';
 
         $validatorBuilder = $container->getDefinition('validator.builder');
-        $validatorBuilder->addMethodCall(
-            'addXmlMappings',
-            [[$validationFile, $configDir.'/validator/validation.xml']]
-        );
+        $validatorBuilder->addMethodCall('addXmlMappings', [[$validationFile, $configDir.'/validator/validation.xml']]);
     }
 }

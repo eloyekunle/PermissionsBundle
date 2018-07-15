@@ -58,15 +58,13 @@ class EloyekunlePermissionsExtension extends Extension
             $definition->setFactory([new Reference('eloyekunle_permissions.doctrine_registry'), 'getManager']);
         }
 
-        $this->remapParametersNamespaces(
-            $config,
-            $container,
-            array(
-                '' => array(
+        $this->remapParametersNamespaces($config, $container, [
+                '' => [
                     'db_driver' => 'eloyekunle_permissions.storage',
                     'role_class' => 'eloyekunle_permissions.model.role.class',
-                ),
-            )
+                    'model_manager_name' => 'eloyekunle_permissions.model_manager_name',
+                ],
+            ]
         );
 
         $this->loadRole($config, $container, $loader);
@@ -121,9 +119,7 @@ class EloyekunlePermissionsExtension extends Extension
         $loader->load('role.xml');
         $loader->load('doctrine_role.xml');
 
-        $container->setAlias(
-            'eloyekunle_permissions.role_manager',
-            new Alias('eloyekunle_permissions.role_manager.default', true)
+        $container->setAlias('eloyekunle_permissions.role_manager', new Alias('eloyekunle_permissions.role_manager.default', true)
         );
     }
 
