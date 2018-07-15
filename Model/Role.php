@@ -139,9 +139,4 @@ abstract class Role implements RoleInterface
     {
         return $this->getRole() === static::ROLE_SUPER_ADMIN;
     }
-
-    public function prePersist()
-    {
-        // TODO sort permissions alphabetically, convert permission to lowercase
-    }
 }
