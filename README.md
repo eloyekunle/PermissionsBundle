@@ -30,7 +30,7 @@ Installation is a quick (I promise!) 5 step process:
 4. Configure the EloyekunlePermissionsBundle
 5. Update your database schema
 
-#### Step 1: Download the bundle
+### Step 1: Download the bundle
 
 Open a command console, enter your project directory and execute the
 following command to download the latest stable version of this bundle:
@@ -42,7 +42,7 @@ $ composer require eloyekunle/permissions-bundle
 This command requires you to have Composer installed globally, as explained
 in the (installation chapter)[https://getcomposer.org/doc/00-intro.md] of the Composer documentation.
 
-#### Step 2: Enable the bundle
+### Step 2: Enable the bundle
 
 Then, enable the bundle by adding the following line in the ``config/bundles.php``
 file of your project, e.g. (Symfony >=4):
@@ -55,11 +55,11 @@ file of your project, e.g. (Symfony >=4):
     ];
 ```
 
-#### Step 3: Create Role class
+### Step 3: Create Role class
 
-#### Step 4: Configure the EloyekunlePermissionsBundle
+### Step 4: Configure the EloyekunlePermissionsBundle
 
-#### Step 5: Update your database schema
+### Step 5: Update your database schema
 
 
 TODO
