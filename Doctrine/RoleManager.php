@@ -33,17 +33,6 @@ class RoleManager extends BaseRoleManager
     /**
      * {@inheritdoc}
      */
-    public function createRole()
-    {
-        $class = $this->getClass();
-        $role = new $class();
-
-        return $role;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getClass()
     {
         return $this->class;
