@@ -86,12 +86,13 @@ __Caution__
     to call parent::__construct(), as the base Role class depends on
     this to initialize some fields.
 
-a) Doctrine ORM Role class
-..........................
+#### Doctrine ORM Role class
 
 If you're persisting your roles via the Doctrine ORM, then your ``Role`` class
 should live in the ``Entity`` namespace of your bundle and look like this to
 start:
+
+##### PHP
 
 ```php
 <?php
@@ -123,6 +124,8 @@ class Role extends BaseRole
 }
 ```
 
+##### YAML
+
 ```yaml
 # src/AppBundle/Resources/config/doctrine/Role.orm.yml
 AppBundle\Entity\User:
@@ -134,6 +137,8 @@ AppBundle\Entity\User:
             generator:
                 strategy: AUTO
 ```
+
+##### XML
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
