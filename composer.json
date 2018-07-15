@@ -19,7 +19,7 @@
         "doctrine/doctrine-bundle": "^1.9",
         "friendsofphp/php-cs-fixer": "^2.2",
         "symfony/phpunit-bridge": "^2.8 || ^3.0 || ^4.0",
-        "doctrine/orm": "^2.6"
+        "doctrine/orm": "^2.5 || ^2.6"
     },
     "license": "MIT",
     "authors": [
