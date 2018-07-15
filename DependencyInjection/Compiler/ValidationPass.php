@@ -24,15 +24,7 @@ class ValidationPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasParameter('eloyekunle_permissions.storage')) {
-            return;
-        }
-
         $storage = $container->getParameter('eloyekunle_permissions.storage');
-
-        if ('custom' === $storage) {
-            return;
-        }
 
         $configDir = __DIR__.'/../../Resources/config';
         $validationFile = $configDir.'/storage-validation/'.$storage.'.xml';

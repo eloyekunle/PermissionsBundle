@@ -20,7 +20,7 @@ use Doctrine\Common\Collections\Collection;
 abstract class User implements UserInterface
 {
     /**
-     * @var Role[]|Collection
+     * @var RoleInterface[]|Collection
      */
     protected $userRoles;
 
@@ -37,7 +37,14 @@ abstract class User implements UserInterface
      */
     public function getRoles()
     {
-        return $this->getRoleNames();
+        $roleNames = [];
+        $roles = $this->getUserRoles();
+
+        foreach ($roles as $role) {
+            $roleNames[] = $role->getRole();
+        }
+
+        return array_unique($roleNames);
     }
 
     /**
@@ -114,22 +121,10 @@ abstract class User implements UserInterface
     }
 
     /**
-     * @return Role[]
+     * @return RoleInterface[]
      */
     public function getUserRoles()
     {
         return $this->userRoles;
-    }
-
-    private function getRoleNames()
-    {
-        $roleNames = [];
-        $roles = $this->getUserRoles();
-
-        foreach ($roles as $role) {
-            $roleNames[] = $role->getRole();
-        }
-
-        return array_unique($roleNames);
     }
 }

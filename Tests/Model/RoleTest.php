@@ -11,7 +11,6 @@
 
 namespace Eloyekunle\PermissionsBundle\Tests\Model;
 
-use Eloyekunle\PermissionsBundle\Model\Role;
 use Eloyekunle\PermissionsBundle\Model\RoleInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -75,7 +74,7 @@ class RoleTest extends TestCase
     }
 
     /**
-     * @return Role
+     * @return RoleInterface
      *
      * @throws \ReflectionException
      */

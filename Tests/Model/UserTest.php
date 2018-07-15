@@ -78,6 +78,8 @@ class UserTest extends TestCase
             $this->assertFalse($user1->hasRole($role));
             $this->assertTrue($user2->hasRole($role));
         }
+
+        $this->assertSame($roleNames, $user2->getRoles());
     }
 
     /**

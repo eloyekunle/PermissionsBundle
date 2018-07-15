@@ -101,8 +101,6 @@ class RoleManagerTest extends TestCase
 
     protected function getRole()
     {
-        $roleClass = static::ROLE_CLASS;
-
-        return new $roleClass();
+        return $this->roleManager->createRole();
     }
 }
