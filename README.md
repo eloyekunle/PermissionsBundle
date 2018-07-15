@@ -51,7 +51,7 @@ file of your project, e.g. (Symfony >=4):
     // config/bundles.php
     return [
         // ...
-        new FOS\RestBundle\FOSRestBundle(),
+        Eloyekunle\PermissionsBundle\EloyekunlePermissionsBundle::class => ['all' => true],
     ];
 ```
 
@@ -64,9 +64,9 @@ file of your project, e.g. (Symfony >=4):
 
 TODO
 ----
-- [x] Add support for MongoDB/CouchDB ORM
-- [x] Performance improvements (some caching??)
-- [x] Persist DEFAULT_ROLE on initial migrations.
-- [x] Add Events to major actions.
-- [x] Explore use of expressions in permissions definitions.
-- [x] Console commands to manage Roles and Permissions.
+- [ ] Add support for MongoDB/CouchDB ORM
+- [ ] Performance improvements (some caching??)
+- [ ] Persist DEFAULT_ROLE on initial migrations.
+- [ ] Add Events to major actions.
+- [ ] Explore use of expressions in permissions definitions.
+- [ ] Console commands to manage Roles and Permissions.
