@@ -52,6 +52,10 @@ class RoleTest extends TestCase
 
         $role->setRole(RoleInterface::ROLE_SUPER_ADMIN);
         $this->assertTrue($role->hasPermission('Administer Systems'));
+        $role->grantPermission('Play with Cats');
+        $this->assertSame([], $role->getPermissions());
+        $role->revokePermission('Play with Cats');
+        $this->assertSame([], $role->getPermissions());
 
         $role->setRole('Not Admin');
         $this->assertFalse($role->hasPermission('Administer Systems'));
@@ -63,10 +67,11 @@ class RoleTest extends TestCase
         $this->assertFalse($role->hasPermission('Administer Systems'));
         $this->assertFalse($role->hasPermission('View Reports'));
 
-        $permissions = ['Administer Systems', 'View Reports'];
+        $permissions = ['Administer Systems', 'View Reports', ''];
         $role->setPermissions($permissions);
         $this->assertTrue($role->hasPermission('Administer Systems'));
         $this->assertTrue($role->hasPermission('View Reports'));
+        $this->assertSame(2, count($role->getPermissions()));
     }
 
     /**

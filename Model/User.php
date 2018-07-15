@@ -53,7 +53,14 @@ abstract class User implements UserInterface
      */
     public function isSuperAdmin()
     {
-        return in_array(RoleInterface::ROLE_SUPER_ADMIN, $this->getRoles());
+        $isSuperAdmin = false;
+        foreach ($this->getUserRoles() as $role) {
+            if ($role->isSuperAdmin()) {
+                return true;
+            }
+        }
+
+        return $isSuperAdmin;
     }
 
     /**
@@ -85,7 +92,9 @@ abstract class User implements UserInterface
      */
     public function setUserRoles(array $userRoles)
     {
-        $this->userRoles = new ArrayCollection($userRoles);
+        foreach ($userRoles as $role) {
+            $this->addRole($role);
+        }
     }
 
     /**
@@ -97,8 +106,7 @@ abstract class User implements UserInterface
 
         foreach ($this->getUserRoles() as $role) {
             if ($role->isSuperAdmin() || $role->hasPermission($permission)) {
-                $hasPermission = true;
-                break;
+                return true;
             }
         }
 
