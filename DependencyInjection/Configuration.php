@@ -36,8 +36,6 @@ class Configuration implements ConfigurationInterface
                         ->thenInvalid('The driver %s is not supported. Please choose one of '.json_encode($supportedDrivers))
                     ->end()
                     ->cannotBeOverwritten()
-                    ->isRequired()
-                    ->cannotBeEmpty()
                     ->defaultValue('orm')
                 ->end()
                 ->scalarNode('role_class')->isRequired()->cannotBeEmpty()->end()
@@ -57,7 +55,7 @@ class Configuration implements ConfigurationInterface
             ->addDefaultsIfNotSet()
             ->canBeUnset()
             ->children()
-                ->scalarNode('definitions_path')->defaultNull()->isRequired()
+                ->scalarNode('definitions_path')->cannotBeEmpty()->isRequired()->end()
             ->end();
     }
 }

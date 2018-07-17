@@ -21,7 +21,7 @@ interface RoleInterface
     /**
      * Role ID for super admin users; should match what's in the "role" table.
      */
-    const ROLE_SUPER_ADMIN = 'ROLE_SYSTEM_ADMIN';
+    const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
     /**
      * @return int

@@ -28,11 +28,16 @@ class PermissionsHandler implements PermissionsHandlerInterface
     /** @var Parser */
     protected $parser;
 
+    /** @var array */
+    protected $permissions;
+
     public function __construct($definitionsPath)
     {
         $this->definitionsPath = $definitionsPath;
         $this->finder = Finder::create()->files()->name('*.yaml')->in($this->definitionsPath);
         $this->parser = new Parser();
+
+        $this->buildPermissionsYaml();
     }
 
     /**
@@ -40,13 +45,11 @@ class PermissionsHandler implements PermissionsHandlerInterface
      */
     public function getPermissions()
     {
-        return $this->buildPermissionsYaml();
+        return $this->permissions;
     }
 
     /**
-     * Returns the list of currently active modules with their permissions.
-     *
-     * @return array
+     * Builds the list of currently active modules with their permissions.
      */
     protected function buildPermissionsYaml()
     {
@@ -55,16 +58,12 @@ class PermissionsHandler implements PermissionsHandlerInterface
         foreach ($this->finder as $definitionsFile) {
             $module = $this->parser->parseFile($definitionsFile->getPathname());
             $moduleKey = $definitionsFile->getBasename('.yaml');
-            $module['title'] = !empty($module['title']) ? $module['title'] : $moduleKey;
 
             foreach ($module['permissions'] as $key => $permission) {
-                $permissions[$key] = [
-                    'title' => $permission['title'],
-                    'provider' => $moduleKey,
-                ];
+                $permissions[$key] = $permission + ['provider' => $moduleKey];
             }
         }
 
-        return $permissions;
+        $this->permissions = $permissions;
     }
 }

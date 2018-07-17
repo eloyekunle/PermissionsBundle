@@ -1,0 +1,13 @@
+name: 'Content'
+
+permissions:
+    # The key is the important stuff here. You can add your own fields too...
+    edit content:
+      # E.g. Add a human-readable name for the permission.
+      title: 'Edit Content'
+      description: 'Grants permission to edit content.'
+      dependencies:
+        - view content
+    view content:
+      title: 'View Content'
+      description: 'Grants permission to view content.'

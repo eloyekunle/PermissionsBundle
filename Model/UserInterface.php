@@ -23,11 +23,10 @@ interface UserInterface
      * }
      * </code>
      *
-     * Alternatively, the roles might be stored on a ``roles`` property,
-     * and populated in any number of different ways when the user object
-     * is created.
+     * This returns an array of the role names because Symfony expects a User::getRoles() method that returns a string
+     * array of user roles. User::getUserRoles() currently returns RoleInterfaces[].
      *
-     * @return (Role|string)[] The user roles
+     * @return string[] The user roles
      */
     public function getRoles();
 

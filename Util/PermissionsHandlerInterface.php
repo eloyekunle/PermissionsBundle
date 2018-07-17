@@ -17,6 +17,7 @@ interface PermissionsHandlerInterface
      * Gets all available permissions.
      *
      * @return array
+     *               A multi-dimensional array with the permission key as the keys, and other fields in an array as the value
      */
     public function getPermissions();
 }

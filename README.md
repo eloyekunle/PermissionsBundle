@@ -1,7 +1,6 @@
 EloyekunlePermissionsBundle
 ===========================
 
-
 [![Build Status](https://travis-ci.org/eloyekunle/PermissionsBundle.svg?branch=master)](https://travis-ci.org/eloyekunle/PermissionsBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/eloyekunle/PermissionsBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/eloyekunle/PermissionsBundle/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/eloyekunle/PermissionsBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/eloyekunle/PermissionsBundle/?branch=master)
@@ -20,14 +19,24 @@ Features include:
 - Symfony Voter for Authorization Checking.
 - Unit tested.
 
+CONTENTS
+--------
+
+* [Installation](#installation)
+* [Usage](#usage)
+* [Contributions](#contributions)
+* [Support](#support)
+* [Credits](#credits)
+
 ## INSTALLATION
 Installation is a quick (I promise!) 5 step process:
 
-1. Download EloyekunlePermissionsBundle using composer
-2. Enable the Bundle
-3. Create your Role class
-4. Configure the EloyekunlePermissionsBundle
-5. Update your database schema
+1. [Download EloyekunlePermissionsBundle using composer](#step-1-download-the-bundle)
+2. [Enable the Bundle](#step-2-enable-the-bundle)
+3. [Create your Role class](#step-3-create-role-class)
+4. [Configure your User class](#step-4-configure-your-user-class)
+5. [Configure the bundle](#step-5-configure-the-bundle)
+6. [Update your database schema](#step-5-update-your-database-schema)
 
 ### Step 1: Download the bundle
 
@@ -56,8 +65,8 @@ file of your project, e.g. (Symfony >=4):
 
 ### Step 3: Create Role class
 
-The goal of this bundle is to persist some ``Role`` class to a database (MySql,
-MongoDB, CouchDB, etc). Your first job, then, is to create the ``Role`` class
+The goal of this bundle is to persist some ``Role`` class to a database. 
+Your first job, then, is to create the ``Role`` class
 for your application. This class can look and act however you want: add any
 properties or methods you find useful. This is *your* ``Role`` class.
 
@@ -67,24 +76,10 @@ to make it easier to create your entity. Here is how you use it:
 1. Extend the base ``Role`` class (from the ``Model`` folder if you are using
    any of the doctrine variants)
 2. Map the ``id`` field. It must be protected as it is inherited from the parent class.
-
-__Caution__
-    When you extend from the mapped superclass provided by the bundle, don't
-    redefine the mapping for the other fields as it is provided by the bundle.
-
-In the following sections, you'll see examples of how your ``Role`` class should
-look, depending on how you're storing your roles (Doctrine ORM, MongoDB ODM,
-or CouchDB ODM).
-
-__Note__
-    The doc uses a bundle named ``AppBundle`` according to the Symfony best
-    practices. However, you can of course place your role class in the bundle
-    you want.
-
-__Caution__
-    If you override the __construct() method in your Role class, be sure
-    to call parent::__construct(), as the base Role class depends on
-    this to initialize some fields.
+3. When you extend from the mapped superclass provided by the bundle, don't 
+   redefine the mapping for the other fields as it is provided by the bundle.
+4. If you override the __construct() method in your Role class, be sure 
+   to call parent::__construct(), as the base Role class depends on this to initialize some fields.
 
 #### Doctrine ORM Role class
 
@@ -96,9 +91,9 @@ start:
 
 ```php
 <?php
-// src/AppBundle/Entity/Role.php
+// src/App/Entity/Role.php
 
-namespace AppBundle\Entity;
+namespace App\Entity;
 
 use Eloyekunle\PermissionsBundle\Model\Role as BaseRole;
 use Doctrine\ORM\Mapping as ORM;
@@ -124,50 +119,223 @@ class Role extends BaseRole
 }
 ```
 
-##### YAML
+### Step 4: Configure your User class
+
+The bundle currently ships with a [`User`](https://github.com/eloyekunle/PermissionsBundle/blob/master/Model/User.php)
+class which you can extend from your own `User` entity.
+
+##### PHP
+
+```php
+<?php
+// src/App/Entity/User.php
+
+namespace App\Entity;
+
+use Eloyekunle\PermissionsBundle\Model\User as BaseUser;
+
+class User extends BaseUser
+{
+    
+    public function __construct()
+    {
+        parent::__construct();
+        // your own logic
+    }
+}
+```
+
+If you already extend another base user class in your `User` entity (e.g. from the excellent [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUserBundle)),
+you will need to implement [`Eloyekunle\PermissionsBundle\Model\UserInterface`](https://github.com/eloyekunle/PermissionsBundle/blob/master/Model/UserInterface.php)
+in your entity and implement the methods (especially `UserInterface::hasPermission`). You can view the [`User`](https://github.com/eloyekunle/PermissionsBundle/blob/master/Model/User.php)
+Entity for sample implementation details.
+
+### Step 5: Configure the Bundle
+
+To configure the bundle, add your custom `Role` class that was created above, and also a path where your permissions
+will be defined. E.g.
 
 ```yaml
-# src/AppBundle/Resources/config/doctrine/Role.orm.yml
-AppBundle\Entity\User:
-    type:  entity
-    table: role
-    id:
-        id:
-            type: integer
-            generator:
-                strategy: AUTO
+# config/packages/eloyekunle_permissions.yaml
+eloyekunle_permissions:
+  role_class: App\Entity\Role
+  module:
+    definitions_path: '%kernel.project_dir%/config/modules'
 ```
 
-##### XML
+### Step 6: Update your database schema
 
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<!-- src/AppBundle/Resources/config/doctrine/Role.orm.xml -->
-<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+Now that the bundle is configured, the last thing you need to do is update your
+database schema because you have added a new entity, the ``Role`` class which you
+created in Step 3.
 
-    <entity name="AppBundle\Entity\User" table="role">
-        <id name="id" type="integer" column="id">
-            <generator strategy="AUTO"/>
-        </id>
-    </entity>
-</doctrine-mapping>
+Run the following command.
+
+```bash
+$ php bin/console doctrine:schema:update --force
 ```
 
-### Step 4: Configure the EloyekunlePermissionsBundle
+**Or** to create and execute a migration:
 
-### Step 5: Update your database schema
-
+```bash
+$ php bin/console doctrine:migrations:diff
+$ php bin/console doctrine:migrations:migrate
+```
 
 ## USAGE
 
+To start using the bundle:
+1. [Set up a few permissions](#2-set-up-a-few-permissions)
+2. [Set up a Role](#1-set-up-a-role)
+3. [Check Permissions in your Controllers](#4-check-permissions-in-your-controllers)
 
-TODO
-----
-- [ ] Add support for MongoDB/CouchDB ORM
-- [ ] Performance improvements (some caching??)
-- [ ] Persist DEFAULT_ROLE on initial migrations.
-- [ ] Add Events to major actions.
-- [ ] Explore use of expressions in permissions definitions.
-- [ ] Console commands to manage Roles and Permissions.
+### 1. Set up a few permissions
+
+This bundle currently supports a modular form of defining permissions, since a lot of projects usually have various
+components e.g. Content Management, User Management, Comments, Files etc. You can easily separate your permissions
+into various YAML files in your `config/modules` directory (or any directory as long as you specify it in the
+config as [described above](#step-5-configure-the-bundle)).
+For example:
+```yaml
+# config/modules/content.yaml
+# This shows the basic expected structure of the permissions definitions.
+
+name: 'Content'
+
+permissions:
+    # The key is the important stuff here. You can add your own fields too...
+    edit content:
+      # E.g. Add a human-readable name for the permission.
+      title: 'Edit Content'
+      description: 'Grants permission to edit content.'
+      dependencies:
+        - view content
+    view content:
+      title: 'View Content'
+      description: 'Grants permission to view content.'
+```
+
+The bundle ships with a [`PermissionsHandler`](https://github.com/eloyekunle/PermissionsBundle/blob/master/Util/PermissionsHandlerInterface.php)
+that is available as a service and can be injected into your Controllers/Services. You can use it to get all available
+permissions.
+
+```php
+<?php
+// src/Controller/PermissionsController.php
+namespace App\Controller;
+
+use Eloyekunle\PermissionsBundle\Util\PermissionsHandler;
+
+class PermissionsController {
+    public function getPermissions(PermissionsHandler $permissionsHandler)
+    {
+        /*
+         * @var array
+         * 
+         * array (
+         *    'edit content' => 
+         *        array (
+         *          'title' => 'Edit Content',
+         *          'description' => 'Grants permission to edit content.',
+         *          'dependencies' => 
+         *              array (
+         *                0 => 'view content',
+         *              ),
+         *          'provider' => 'content',
+         *        ),
+         *    'view content' => 
+         *        array (
+         *          'title' => 'View Content',
+         *          'description' => 'Grants permission to view content.',
+         *          'provider' => 'content',
+         *        ),
+         *  )
+         */
+        $permissions = $permissionsHandler->getPermissions();
+        // ........................
+    }
+}
+```
+
+### 2. Set up a Role
+
+The bundle ships with a [`RoleManager`](https://github.com/eloyekunle/PermissionsBundle/blob/master/Model/RoleManagerInterface.php)
+which is available as a service and can be injected into your Controllers/Services. It contains useful utility methods
+to manager roles. You can also `get` it from the container as `eloyekunle_permissions.role_manager`.
+
+```php
+<?php
+// src/App/Controller/RoleController.php
+namespace App\Controller;
+
+use Eloyekunle\PermissionsBundle\Doctrine\RoleManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+class RoleController extends Controller 
+{
+    public function create(RoleManager $roleManager) {
+        $role = $roleManager->createRole();
+        $role->setRole('Content Admin');
+        
+        $roleManager->updateRole($role);
+        // ......
+    }
+}
+```
+
+This creates and persists a `Role` entity to your database.
+
+### 3. Check Permissions in your Controllers
+
+The bundle ships with a [voter](https://symfony.com/doc/current/security/voters.html), [`PermissionsVoter`](https://github.com/eloyekunle/PermissionsBundle/blob/master/Security/PermissionsVoter.php).
+You can check for user permissions by using the `isGranted()` method on Symfony's authorization checker or call 
+`denyAccessUnlessGranted()` in a controller.
+
+```php
+<?php
+// src/App/Controller/ContentController.php
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Annotation\Route;
+
+class ContentController extends Controller 
+{
+    
+    /**
+     * @Route("/content/{id}/edit", name="content_edit")
+     * 
+     * 
+     */
+    public function edit($id)
+    {
+        $this->denyAccessUnlessGranted('edit content');
+        // Get a Content object - e.g. query for it.
+        // $content = ......;
+    }
+    
+    /**
+     * @Route("/content/{id}", name="content_show")
+     */
+    public function show($id)
+    {
+        $this->denyAccessUnlessGranted('view content');
+        // Get a Content object - e.g. query for it.
+        // $content = ......;
+    }
+}
+```
+
+## CONTRIBUTIONS
+
+Contributions of any kind are welcome: code, documentation, ideas etc.
+Issues and feature requests are tracked in the [Github issue tracker](https://github.com/eloyekunle/PermissionsBundle/issues).
+
+## SUPPORT
+If you need any support related to this bundle, you can contact me on the [Symfony Slack group](http://symfony-devs.slack.com) 
+(eloyekunle), or send me an email (eloyekunle@gmail.com).
+
+## CREDITS
+- Bundle inspired by the [Drupal Permissions System](https://api.drupal.org/api/drupal/core!core.api.php/group/user_api/8.5.x)!
+- Implementation inspired by some excellent Symfony bundles, especially [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUserBundle).
+- [Elijah Oyekunle](https://elijahoyekunle.com) - [LinkedIn](https://www.linkedin.com/in/elijahoyekunle) - [Twitter](https://twitter.com/elijahoyekunle) - [Github](https://github.com/eloyekunle)

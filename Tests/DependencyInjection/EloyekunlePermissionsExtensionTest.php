@@ -49,16 +49,6 @@ class EloyekunlePermissionsExtensionTest extends TestCase
     /**
      * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
-    public function testLoadThrowsExceptionUnlessDatabaseDriverSet()
-    {
-        $config = $this->getEmptyConfig();
-        unset($config['db_driver']);
-        $this->extension->load([$config], $this->container);
-    }
-
-    /**
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
-     */
     public function testLoadThrowsExceptionUnlessDatabaseDriverIsValid()
     {
         $config = $this->getEmptyConfig();
