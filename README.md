@@ -4,9 +4,6 @@ EloyekunlePermissionsBundle
 [![Build Status](https://travis-ci.org/eloyekunle/PermissionsBundle.svg?branch=master)](https://travis-ci.org/eloyekunle/PermissionsBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/eloyekunle/PermissionsBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/eloyekunle/PermissionsBundle/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/eloyekunle/PermissionsBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/eloyekunle/PermissionsBundle/?branch=master)
-[![Total Downloads](https://poser.pugx.org/eloyekunle/permissions-bundle/downloads.svg)](https://packagist.org/packages/eloyekunle/permissions-bundle)
-[![Latest Stable Version](https://poser.pugx.org/eloyekunle/permissions-bundle/v/stable.svg)](https://packagist.org/packages/eloyekunle/permissions-bundle)
-[![Latest Unstable Version](https://poser.pugx.org/eloyekunle/permissions-bundle/v/unstable.png)](https://packagist.org/packages/eloyekunle/permissions-bundle)
 
 The EloyekunlePermissionsBundle provides support for a database-backed permissions system in Symfony2.
 It provides a flexible framework for permissions management that aims to handle common tasks such as flexible
