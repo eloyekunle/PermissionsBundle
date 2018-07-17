@@ -38,7 +38,7 @@ class Configuration implements ConfigurationInterface
                     ->cannotBeOverwritten()
                     ->defaultValue('orm')
                 ->end()
-                ->scalarNode('role_class')->defaultNull()->end()
+                ->scalarNode('role_class')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('model_manager_name')->defaultNull()->end()
             ->end();
 
@@ -55,7 +55,7 @@ class Configuration implements ConfigurationInterface
             ->addDefaultsIfNotSet()
             ->canBeUnset()
             ->children()
-                ->scalarNode('definitions_path')->defaultNull()->end()
+                ->scalarNode('definitions_path')->cannotBeEmpty()->isRequired()->end()
             ->end();
     }
 }
