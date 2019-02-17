@@ -22,8 +22,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('eloyekunle_permissions');
+        $treeBuilder = new TreeBuilder('eloyekunle_permissions');
+        $rootNode = method_exists(TreeBuilder::class, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('eloyekunle_permissions');
 
         $supportedDrivers = ['orm'];
 
